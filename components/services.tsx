@@ -238,41 +238,95 @@ export function Services() {
                     {service.description}
                   </p>
 
-                  {/* Feature Cards Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                  {/* Feature Cards Grid - Hero Style */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6">
                     {service.isLoading ? (
-                      // Loading skeleton
+                      // Loading skeleton with hero card shape
                       Array.from({ length: 4 }).map((_, i) => (
-                        <div
-                          key={i}
-                          className="bg-white/10 backdrop-blur-sm rounded-lg p-4 animate-pulse"
-                        >
-                          <div className="h-4 bg-white/20 rounded w-1/3 mb-3" />
-                          <div className="h-3 bg-white/10 rounded w-full mb-2" />
-                          <div className="h-3 bg-white/10 rounded w-2/3" />
+                        <div key={i} className="relative h-[140px]">
+                          <svg
+                            className="absolute inset-0 w-full h-full"
+                            viewBox="0 0 280 140"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            preserveAspectRatio="none"
+                          >
+                            <path
+                              d="M0 12C0 5.37258 5.37258 0 12 0H268C274.627 0 280 5.37258 280 12V128C280 134.627 274.627 140 268 140H12C5.37258 140 0 134.627 0 128V12Z"
+                              fill="white"
+                              fillOpacity="0.1"
+                            />
+                          </svg>
+                          <div className="absolute inset-0 p-5 animate-pulse">
+                            <div className="h-4 bg-white/20 rounded w-1/4 mb-3" />
+                            <div className="h-5 bg-white/15 rounded w-2/3 mb-3" />
+                            <div className="h-3 bg-white/10 rounded w-full mb-2" />
+                            <div className="h-3 bg-white/10 rounded w-3/4" />
+                          </div>
                         </div>
                       ))
                     ) : (
                       service.features.map((feature, featureIndex) => (
                         <div
                           key={featureIndex}
-                          className="bg-white rounded-lg p-4 transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer group/feature"
-                          style={{ animationDelay: `${featureIndex * 100}ms` }}
+                          className="relative h-[140px] transition-transform duration-300 ease-out hover:scale-[1.03] active:scale-[0.98] cursor-pointer group/feature"
+                          style={{ 
+                            animationDelay: `${featureIndex * 100}ms`,
+                          }}
                         >
-                          {/* Highlight badge */}
-                          <span className="inline-block text-xs font-bold uppercase text-[#21346e] bg-[#21346e]/10 px-2 py-1 rounded mb-2">
-                            {feature.highlight}
-                          </span>
+                          {/* SVG Card Shape - Matching Hero Button Style */}
+                          <svg
+                            className="absolute inset-0 w-full h-full drop-shadow-lg transition-all duration-300 group-hover/feature:drop-shadow-2xl"
+                            viewBox="0 0 280 140"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            preserveAspectRatio="none"
+                          >
+                            <path
+                              d="M0 12C0 5.37258 5.37258 0 12 0H268C274.627 0 280 5.37258 280 12V128C280 134.627 274.627 140 268 140H12C5.37258 140 0 134.627 0 128V12Z"
+                              fill="white"
+                              className="transition-all duration-300"
+                            />
+                          </svg>
                           
-                          {/* Feature title */}
-                          <h4 className="text-lg font-bold text-[#161a20] mb-1">
-                            {feature.title}
-                          </h4>
-                          
-                          {/* Feature description */}
-                          <p className="text-sm text-[#161a20]/70 leading-relaxed">
-                            {feature.description}
-                          </p>
+                          {/* Card Content */}
+                          <div className="absolute inset-0 p-5 flex flex-col justify-between">
+                            {/* Top Row - Highlight Badge */}
+                            <div className="flex items-center justify-between">
+                              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase text-[#21346e] tracking-wider">
+                                <span className="w-1.5 h-1.5 bg-[#21346e] rounded-full" />
+                                {feature.highlight}
+                              </span>
+                              {/* Arrow Icon */}
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={2.5}
+                                stroke="currentColor"
+                                className="w-4 h-4 text-[#21346e]/40 group-hover/feature:text-[#21346e] group-hover/feature:translate-x-0.5 group-hover/feature:-translate-y-0.5 transition-all duration-300"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                                />
+                              </svg>
+                            </div>
+                            
+                            {/* Main Content */}
+                            <div>
+                              {/* Feature title */}
+                              <h4 className="text-[17px] font-bold text-[#161a20] mb-1.5 leading-tight uppercase tracking-tight">
+                                {feature.title}
+                              </h4>
+                              
+                              {/* Feature description */}
+                              <p className="text-[13px] text-[#161a20]/60 leading-relaxed line-clamp-2">
+                                {feature.description}
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       ))
                     )}
