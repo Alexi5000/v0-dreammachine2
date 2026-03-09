@@ -25,8 +25,7 @@ export function Hero() {
         />
       </video>
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-[#21346e]/40" />
+
 
       {/* Content Overlay */}
       <div className="relative z-10 container mx-auto px-4 pt-40 md:pt-56 pb-24">
@@ -141,19 +140,6 @@ export function Hero() {
           </button>
         </div>
 
-        {/* Scroll Indicator */}
-        <div
-          className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-700 delay-700 ${
-            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-        >
-          <div className="flex flex-col items-center gap-2 text-white/50">
-            <span className="text-xs uppercase tracking-widest">Scroll</span>
-            <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2">
-              <div className="w-1 h-2 bg-white rounded-full animate-bounce" />
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )

@@ -1,8 +1,22 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useCallback } from "react"
 
-const services = [
+interface Feature {
+  title: string
+  description: string
+  highlight: string
+}
+
+interface ServiceData {
+  title: string
+  description: string
+  icon: React.ReactNode
+  features: Feature[]
+  isLoading: boolean
+}
+
+const initialServices: ServiceData[] = [
   {
     title: "AI Brand Identity",
     description:
@@ -27,6 +41,8 @@ const services = [
         <path d="M24 4V16M24 32V44M4 24H16M32 24H44" stroke="currentColor" strokeWidth="2" />
       </svg>
     ),
+    features: [],
+    isLoading: true,
   },
   {
     title: "Generative Design",
@@ -48,6 +64,8 @@ const services = [
         <path d="M24 4V24M24 24L44 14M24 24L4 14M24 24V44" stroke="currentColor" strokeWidth="2" />
       </svg>
     ),
+    features: [],
+    isLoading: true,
   },
   {
     title: "Motion & Animation",
@@ -70,6 +88,8 @@ const services = [
         />
       </svg>
     ),
+    features: [],
+    isLoading: true,
   },
   {
     title: "Web Development",
@@ -98,12 +118,44 @@ const services = [
         <path d="M30 28L26 32L30 36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       </svg>
     ),
+    features: [],
+    isLoading: true,
   },
 ]
 
 export function Services() {
   const [visibleCards, setVisibleCards] = useState<number[]>([])
+  const [services, setServices] = useState<ServiceData[]>(initialServices)
+  const [expandedCard, setExpandedCard] = useState<number | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
+  const hasLoadedRef = useRef<Set<number>>(new Set())
+
+  const loadFeatures = useCallback(async (index: number) => {
+    if (hasLoadedRef.current.has(index)) return
+    hasLoadedRef.current.add(index)
+
+    const service = initialServices[index]
+    try {
+      const response = await fetch("/api/generate-features", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          serviceName: service.title,
+          serviceDescription: service.description,
+        }),
+      })
+      const data = await response.json()
+      setServices((prev) =>
+        prev.map((s, i) =>
+          i === index ? { ...s, features: data.features || [], isLoading: false } : s
+        )
+      )
+    } catch {
+      setServices((prev) =>
+        prev.map((s, i) => (i === index ? { ...s, isLoading: false } : s))
+      )
+    }
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -112,6 +164,7 @@ export function Services() {
           if (entry.isIntersecting) {
             const index = Number(entry.target.getAttribute("data-index"))
             setVisibleCards((prev) => [...new Set([...prev, index])])
+            loadFeatures(index)
           }
         })
       },
@@ -122,7 +175,7 @@ export function Services() {
     cards?.forEach((card) => observer.observe(card))
 
     return () => observer.disconnect()
-  }, [])
+  }, [loadFeatures])
 
   return (
     <section
@@ -154,42 +207,100 @@ export function Services() {
             <div
               key={service.title}
               data-index={index}
-              className={`service-card group relative p-8 md:p-10 rounded-lg border border-border bg-card transition-all duration-700 hover:border-white/30 ${
+              className={`service-card group relative rounded-lg overflow-hidden transition-all duration-700 ${
                 visibleCards.includes(index)
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"
-              }`}
+              } ${expandedCard === index ? "md:col-span-2" : ""}`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              {/* Icon */}
-              <div className="text-white/40 group-hover:text-white transition-colors duration-500 mb-6">
-                {service.icon}
-              </div>
+              {/* Card with hero-style background */}
+              <div className="relative bg-[#21346e] min-h-[400px] p-8 md:p-10">
+                {/* Animated gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#21346e] via-[#2a4080] to-[#1a2850] opacity-100" />
+                
+                {/* Subtle animated glow */}
+                <div className="absolute -top-20 -right-20 w-60 h-60 bg-white/5 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-white/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
 
-              {/* Content */}
-              <h3 className="text-2xl md:text-3xl font-bold uppercase text-white mb-4 tracking-tight">
-                {service.title}
-              </h3>
-              <p className="text-white/60 leading-relaxed">
-                {service.description}
-              </p>
+                {/* Content */}
+                <div className="relative z-10">
+                  {/* Icon */}
+                  <div className="text-white group-hover:scale-110 transition-transform duration-500 mb-6">
+                    {service.icon}
+                  </div>
 
-              {/* Arrow */}
-              <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="w-6 h-6 text-white"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-                  />
-                </svg>
+                  {/* Title & Description */}
+                  <h3 className="text-2xl md:text-3xl font-bold uppercase text-white mb-4 tracking-tight">
+                    {service.title}
+                  </h3>
+                  <p className="text-white/80 leading-relaxed mb-8">
+                    {service.description}
+                  </p>
+
+                  {/* Feature Cards Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                    {service.isLoading ? (
+                      // Loading skeleton
+                      Array.from({ length: 4 }).map((_, i) => (
+                        <div
+                          key={i}
+                          className="bg-white/10 backdrop-blur-sm rounded-lg p-4 animate-pulse"
+                        >
+                          <div className="h-4 bg-white/20 rounded w-1/3 mb-3" />
+                          <div className="h-3 bg-white/10 rounded w-full mb-2" />
+                          <div className="h-3 bg-white/10 rounded w-2/3" />
+                        </div>
+                      ))
+                    ) : (
+                      service.features.map((feature, featureIndex) => (
+                        <div
+                          key={featureIndex}
+                          className="bg-white rounded-lg p-4 transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer group/feature"
+                          style={{ animationDelay: `${featureIndex * 100}ms` }}
+                        >
+                          {/* Highlight badge */}
+                          <span className="inline-block text-xs font-bold uppercase text-[#21346e] bg-[#21346e]/10 px-2 py-1 rounded mb-2">
+                            {feature.highlight}
+                          </span>
+                          
+                          {/* Feature title */}
+                          <h4 className="text-lg font-bold text-[#161a20] mb-1">
+                            {feature.title}
+                          </h4>
+                          
+                          {/* Feature description */}
+                          <p className="text-sm text-[#161a20]/70 leading-relaxed">
+                            {feature.description}
+                          </p>
+                        </div>
+                      ))
+                    )}
+                  </div>
+
+                  {/* CTA Button matching hero style */}
+                  <button
+                    onClick={() => setExpandedCard(expandedCard === index ? null : index)}
+                    className="relative mt-8 w-[160px] h-[50px] transition-transform duration-200 ease-out hover:scale-105 active:scale-95 cursor-pointer group/btn"
+                  >
+                    <svg
+                      className="absolute inset-0 w-full h-full"
+                      viewBox="0 0 160 50"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0 8C0 3.58172 3.58172 0 8 0H152C156.418 0 160 3.58172 160 8V42C160 46.4183 156.418 50 152 50H8C3.58172 50 0 46.4183 0 42V8Z"
+                        fill="white"
+                        className="transition-all duration-300 group-hover/btn:fill-white/90"
+                      />
+                    </svg>
+                    <span className="relative z-10 flex items-center justify-center w-full h-full text-[16px] font-bold uppercase text-[#161a20]">
+                      LEARN MORE
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
