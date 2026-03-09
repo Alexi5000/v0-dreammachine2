@@ -1,0 +1,154 @@
+"use client"
+
+import { useEffect, useRef, useState } from "react"
+
+const testimonials = [
+  {
+    quote:
+      "Nexus AI transformed our entire brand identity in ways we never imagined possible. The AI-powered approach delivered results that exceeded all expectations.",
+    author: "Sarah Chen",
+    role: "CEO, Quantum Finance",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
+  },
+  {
+    quote:
+      "Working with Nexus was a game-changer. Their unique blend of AI and human creativity produced a visual identity that truly captures our innovative spirit.",
+    author: "Marcus Rodriguez",
+    role: "Founder, Echo Studios",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop",
+  },
+  {
+    quote:
+      "The speed and quality of their AI-powered design process is remarkable. We went from concept to launch in record time without sacrificing creativity.",
+    author: "Emily Watson",
+    role: "CMO, Neural Health",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
+  },
+]
+
+const logos = [
+  "Quantum",
+  "Echo",
+  "Neural",
+  "Velocity",
+  "Apex",
+  "Prism",
+]
+
+export function Testimonials() {
+  const [isVisible, setIsVisible] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+          }
+        })
+      },
+      { threshold: 0.2 }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % testimonials.length)
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative py-24 md:py-32 bg-[#0a0a0a]"
+    >
+      <div className="container mx-auto px-4">
+        {/* Logos */}
+        <div
+          className={`flex flex-wrap justify-center items-center gap-8 md:gap-16 mb-24 transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <span className="w-full text-center text-sm font-bold uppercase text-white/30 tracking-widest mb-4">
+            Trusted by industry leaders
+          </span>
+          {logos.map((logo, index) => (
+            <span
+              key={logo}
+              className="text-2xl md:text-3xl font-bold uppercase text-white/20 hover:text-white/40 transition-colors duration-300"
+              style={{ transitionDelay: `${index * 50}ms` }}
+            >
+              {logo}
+            </span>
+          ))}
+        </div>
+
+        {/* Testimonial */}
+        <div
+          className={`max-w-5xl mx-auto text-center transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+          style={{ transitionDelay: "300ms" }}
+        >
+          {/* Quote */}
+          <blockquote className="relative mb-12">
+            <svg
+              className="absolute -top-8 left-1/2 -translate-x-1/2 w-16 h-16 text-white/10"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+            <p
+              className="text-2xl md:text-4xl lg:text-5xl font-medium text-white leading-relaxed"
+              style={{ lineHeight: 1.3 }}
+            >
+              {testimonials[activeIndex].quote}
+            </p>
+          </blockquote>
+
+          {/* Author */}
+          <div className="flex flex-col items-center">
+            <img
+              src={testimonials[activeIndex].image}
+              alt={testimonials[activeIndex].author}
+              className="w-16 h-16 rounded-full object-cover mb-4 border-2 border-white/20"
+            />
+            <p className="text-lg font-bold uppercase text-white tracking-wide">
+              {testimonials[activeIndex].author}
+            </p>
+            <p className="text-sm text-white/50">
+              {testimonials[activeIndex].role}
+            </p>
+          </div>
+
+          {/* Dots */}
+          <div className="flex justify-center gap-3 mt-12">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  activeIndex === index
+                    ? "bg-white w-8"
+                    : "bg-white/30 hover:bg-white/50"
+                }`}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
