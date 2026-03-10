@@ -6,7 +6,6 @@ import { ShapedButton } from "@/components/ui/shaped-button"
 import { PlayIcon } from "@/components/icons"
 import { HeroParticles } from "@/components/hero-particles"
 import { HeroAIHeadline } from "@/components/hero-ai-headline"
-import { HeroAIDemo } from "@/components/hero-ai-demo"
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -83,15 +82,6 @@ export function Hero() {
           </ShapedButton>
         </div>
 
-        {/* Musk #3: Real-time AI demo */}
-        <div
-          className={`mt-10 transition-all duration-500 delay-400 ${
-            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-          style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
-        >
-          <HeroAIDemo />
-        </div>
       </div>
     </section>
   )

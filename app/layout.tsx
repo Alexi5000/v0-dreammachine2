@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Rubik } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { VoiceNavigation } from '@/components/voice-navigation'
 import { PreloadProvider } from '@/components/preload-provider'
 import './globals.css'
 
@@ -45,8 +44,6 @@ export default function RootLayout({
         <PreloadProvider>
           {children}
         </PreloadProvider>
-        {/* Musk #2: Voice-activated navigation */}
-        <VoiceNavigation />
         <Analytics />
       </body>
     </html>

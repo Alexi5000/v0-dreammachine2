@@ -14,13 +14,15 @@ interface BiteChatProps {
   onboardingComplete?: boolean
 }
 
+type VoiceStatus = "idle" | "listening" | "processing" | "error"
+
 export function BiteChat({ onboardingComplete = true }: BiteChatProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
       role: "assistant",
-      content: "Hi! How can I help?",
+      content: "Hi! How can I help you today?",
       timestamp: new Date(),
     },
   ])
@@ -29,6 +31,18 @@ export function BiteChat({ onboardingComplete = true }: BiteChatProps) {
   const [hasUnread, setHasUnread] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  
+  // Voice state
+  const [voiceStatus, setVoiceStatus] = useState<VoiceStatus>("idle")
+  const [isVoiceSupported, setIsVoiceSupported] = useState(false)
+  const recognitionRef = useRef<SpeechRecognition | null>(null)
+
+  // Check voice support on mount
+  useEffect(() => {
+    const supported = typeof window !== "undefined" &&
+      ("SpeechRecognition" in window || "webkitSpeechRecognition" in window)
+    setIsVoiceSupported(supported)
+  }, [])
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -49,10 +63,10 @@ export function BiteChat({ onboardingComplete = true }: BiteChatProps) {
     
     setTimeout(() => {
       const responses = [
-        "I can help with that!",
-        "Great question!",
-        "Let me assist you.",
-        "On it!",
+        "I can help you with that! Let me look into it.",
+        "Great question! Here's what I found...",
+        "I'm on it! Give me a moment.",
+        "Thanks for asking! Here's my response.",
       ]
       
       const newMessage: Message = {
@@ -67,19 +81,20 @@ export function BiteChat({ onboardingComplete = true }: BiteChatProps) {
     }, 800 + Math.random() * 600)
   }, [])
 
-  const handleSend = useCallback(() => {
-    if (!input.trim()) return
+  const handleSend = useCallback((text?: string) => {
+    const messageText = text || input.trim()
+    if (!messageText) return
     
     const newMessage: Message = {
       id: Date.now().toString(),
       role: "user",
-      content: input.trim(),
+      content: messageText,
       timestamp: new Date(),
     }
     
     setMessages(prev => [...prev, newMessage])
     setInput("")
-    simulateResponse(input.trim())
+    simulateResponse(messageText)
   }, [input, simulateResponse])
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -88,6 +103,78 @@ export function BiteChat({ onboardingComplete = true }: BiteChatProps) {
       handleSend()
     }
   }
+
+  // Voice input handling
+  const startVoiceInput = useCallback(async () => {
+    if (!isVoiceSupported) return
+
+    // Request microphone permission
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      stream.getTracks().forEach(track => track.stop())
+    } catch {
+      setVoiceStatus("error")
+      return
+    }
+
+    if (recognitionRef.current) {
+      recognitionRef.current.abort()
+    }
+
+    try {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+      const recognition = new SpeechRecognition()
+      recognitionRef.current = recognition
+
+      recognition.continuous = false
+      recognition.interimResults = true
+      recognition.lang = "en-US"
+
+      recognition.onstart = () => {
+        setVoiceStatus("listening")
+      }
+
+      recognition.onresult = (event: SpeechRecognitionEvent) => {
+        const result = event.results[event.resultIndex]
+        const text = result[0].transcript
+        
+        if (result.isFinal) {
+          setVoiceStatus("processing")
+          setInput(text)
+          // Auto-send after voice input
+          setTimeout(() => {
+            handleSend(text)
+            setVoiceStatus("idle")
+          }, 300)
+        } else {
+          setInput(text)
+        }
+      }
+
+      recognition.onerror = () => {
+        setVoiceStatus("error")
+        setTimeout(() => setVoiceStatus("idle"), 2000)
+      }
+
+      recognition.onend = () => {
+        if (voiceStatus === "listening") {
+          setVoiceStatus("idle")
+        }
+      }
+
+      recognition.start()
+    } catch {
+      setVoiceStatus("error")
+    }
+  }, [isVoiceSupported, voiceStatus, handleSend])
+
+  const stopVoiceInput = useCallback(() => {
+    if (recognitionRef.current) {
+      recognitionRef.current.abort()
+      recognitionRef.current = null
+    }
+    setVoiceStatus("idle")
+  }, [])
 
   if (!onboardingComplete) return null
 
@@ -156,14 +243,14 @@ export function BiteChat({ onboardingComplete = true }: BiteChatProps) {
             )}
           </motion.button>
         ) : (
-          // Compact Square Chat Window - 280x320px
+          // Compact Square Chat Window - 280x340px
           <motion.div
             key="chat-window"
             initial={{ scale: 0.9, opacity: 0, y: 10 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 10 }}
             transition={{ type: "spring", damping: 28, stiffness: 350 }}
-            className="w-[280px] h-[320px] relative"
+            className="w-[280px] h-[340px] relative"
           >
             {/* Glassmorphic container */}
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#21346e]/90 via-[#1a2a5a]/90 to-[#151f45]/90 backdrop-blur-2xl border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.5)] overflow-hidden">
@@ -197,8 +284,8 @@ export function BiteChat({ onboardingComplete = true }: BiteChatProps) {
                 </button>
               </div>
               
-              {/* Messages Area - Compact height */}
-              <div className="h-[195px] overflow-y-auto px-3 py-3 space-y-2.5 scrollbar-thin scrollbar-thumb-white/10">
+              {/* Messages Area */}
+              <div className="h-[205px] overflow-y-auto px-3 py-3 space-y-2.5 scrollbar-thin scrollbar-thumb-white/10">
                 <AnimatePresence initial={false}>
                   {messages.map((message) => (
                     <motion.div
@@ -250,22 +337,67 @@ export function BiteChat({ onboardingComplete = true }: BiteChatProps) {
                 <div ref={messagesEndRef} />
               </div>
               
-              {/* Input Area */}
+              {/* Input Area with Voice */}
               <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-white/10 bg-[#151f45]/80">
                 <div className="flex items-center gap-2">
+                  {/* Voice button integrated into chat */}
+                  {isVoiceSupported && (
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={voiceStatus === "listening" ? stopVoiceInput : startVoiceInput}
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
+                        voiceStatus === "listening" 
+                          ? "bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.5)]" 
+                          : voiceStatus === "error"
+                          ? "bg-orange-500"
+                          : "bg-white/10 hover:bg-white/20"
+                      }`}
+                      aria-label={voiceStatus === "listening" ? "Stop voice input" : "Start voice input"}
+                    >
+                      <svg 
+                        className={`w-3.5 h-3.5 ${voiceStatus === "listening" ? "text-white animate-pulse" : "text-white/70"}`} 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor" 
+                        strokeWidth={2}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                        <line x1="12" y1="19" x2="12" y2="23" />
+                        <line x1="8" y1="23" x2="16" y2="23" />
+                      </svg>
+                      
+                      {/* Listening animation */}
+                      {voiceStatus === "listening" && (
+                        <motion.span
+                          className="absolute inset-0 rounded-lg border-2 border-red-400"
+                          initial={{ scale: 1, opacity: 0.8 }}
+                          animate={{ scale: 1.3, opacity: 0 }}
+                          transition={{ duration: 1, repeat: Infinity }}
+                        />
+                      )}
+                    </motion.button>
+                  )}
+                  
                   <input
                     ref={inputRef}
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder="Message..."
-                    className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-[#fbbf24]/40 transition-colors"
+                    placeholder={voiceStatus === "listening" ? "Listening..." : "Message..."}
+                    className={`flex-1 bg-white/5 border rounded-lg px-3 py-2 text-xs text-white placeholder:text-white/30 focus:outline-none transition-colors ${
+                      voiceStatus === "listening" 
+                        ? "border-red-500/50 focus:border-red-500" 
+                        : "border-white/10 focus:border-[#fbbf24]/40"
+                    }`}
                   />
+                  
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={handleSend}
+                    onClick={() => handleSend()}
                     disabled={!input.trim()}
                     className="w-8 h-8 rounded-lg bg-[#fbbf24] hover:bg-[#fbbf24]/90 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
                     aria-label="Send"
@@ -275,6 +407,20 @@ export function BiteChat({ onboardingComplete = true }: BiteChatProps) {
                     </svg>
                   </motion.button>
                 </div>
+                
+                {/* Voice status indicator */}
+                <AnimatePresence>
+                  {voiceStatus === "listening" && (
+                    <motion.p
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="text-[10px] text-red-400 mt-1.5 text-center"
+                    >
+                      Speak now...
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </motion.div>
