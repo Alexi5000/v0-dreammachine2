@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ShapedButton } from "@/components/ui/shaped-button"
 import { PlayIcon } from "@/components/icons"
-import { HeroParticles } from "@/components/hero-particles"
 import { HeroAIHeadline } from "@/components/hero-ai-headline"
 
 export function Hero() {
@@ -25,8 +24,8 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Permanent animated video background - always visible, no fallback */}
-      <div className="absolute inset-0 z-0 bg-[#0a0f1a]">
+      {/* Permanent animated video background - brighter fallback, no dark overlay */}
+      <div className="absolute inset-0 z-0 bg-[#1a2744]">
         <video
           autoPlay
           loop
@@ -38,7 +37,7 @@ export function Hero() {
           className="absolute inset-0 w-full h-full object-cover"
           style={{ 
             opacity: videoLoaded ? 1 : 0,
-            transition: "opacity 0.8s ease-out",
+            transition: "opacity 0.5s ease-out",
           }}
         >
           <source
@@ -47,17 +46,14 @@ export function Hero() {
           />
         </video>
         
-        {/* Gradient overlay for text readability */}
+        {/* Light gradient overlay - minimal darkening for text readability only */}
         <div 
-          className="absolute inset-0 z-[1]"
+          className="absolute inset-0 z-[1] pointer-events-none"
           style={{
-            background: "linear-gradient(to bottom, rgba(10, 15, 26, 0.3) 0%, rgba(10, 15, 26, 0.5) 50%, rgba(10, 15, 26, 0.7) 100%)"
+            background: "linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.15) 100%)"
           }}
         />
       </div>
-
-      {/* Interactive particle system overlay */}
-      <HeroParticles />
 
       {/* Content Overlay */}
       <div className="relative z-10 container mx-auto px-4 pt-40 md:pt-56 pb-24">
