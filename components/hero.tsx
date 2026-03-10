@@ -13,26 +13,48 @@ export function Hero() {
 
   useEffect(() => {
     setIsLoaded(true)
+    
+    // Force video to start playing on mount
+    const video = document.querySelector('video')
+    if (video) {
+      video.play().catch(() => {
+        // Autoplay may be blocked, but video will still show first frame
+      })
+    }
   }, [])
 
   return (
-    <section className="relative min-h-screen bg-[#21346e] overflow-hidden">
-      {/* Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        onLoadedData={() => setVideoLoaded(true)}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-          videoLoaded ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <source
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260206_044704_dd33cb15-c23f-4cfc-aa09-a0465d4dcb54.mp4"
-          type="video/mp4"
+    <section className="relative min-h-screen overflow-hidden">
+      {/* Permanent animated video background - always visible, no fallback */}
+      <div className="absolute inset-0 z-0 bg-[#0a0f1a]">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          onLoadedData={() => setVideoLoaded(true)}
+          onCanPlayThrough={() => setVideoLoaded(true)}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ 
+            opacity: videoLoaded ? 1 : 0,
+            transition: "opacity 0.8s ease-out",
+          }}
+        >
+          <source
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260206_044704_dd33cb15-c23f-4cfc-aa09-a0465d4dcb54.mp4"
+            type="video/mp4"
+          />
+        </video>
+        
+        {/* Gradient overlay for text readability */}
+        <div 
+          className="absolute inset-0 z-[1]"
+          style={{
+            background: "linear-gradient(to bottom, rgba(10, 15, 26, 0.3) 0%, rgba(10, 15, 26, 0.5) 50%, rgba(10, 15, 26, 0.7) 100%)"
+          }}
         />
-      </video>
+      </div>
 
       {/* Interactive particle system overlay */}
       <HeroParticles />
