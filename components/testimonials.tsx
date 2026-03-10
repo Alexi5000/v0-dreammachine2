@@ -1,7 +1,8 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { QuoteIcon } from "@/components/icons"
+import { useInViewAnimation } from "@/hooks/use-in-view-animation"
 
 const testimonials = [
   {
@@ -37,28 +38,8 @@ const logos = [
 ]
 
 export function Testimonials() {
-  const [isVisible, setIsVisible] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true)
-          }
-        })
-      },
-      { threshold: 0.2 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
+  const { ref: sectionRef, isVisible } = useInViewAnimation<HTMLElement>()
 
   useEffect(() => {
     const interval = setInterval(() => {

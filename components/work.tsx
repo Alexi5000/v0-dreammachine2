@@ -1,8 +1,9 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import { ShapedButton } from "@/components/ui/shaped-button"
 import { ArrowUpRightIcon } from "@/components/icons"
+import { useInViewAnimation } from "@/hooks/use-in-view-animation"
 
 const projects = [
   {
@@ -28,28 +29,8 @@ const projects = [
 ]
 
 export function Work() {
-  const [isVisible, setIsVisible] = useState(false)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true)
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
+  const { ref: sectionRef, isVisible } = useInViewAnimation<HTMLElement>({ threshold: 0.1 })
 
   return (
     <section
