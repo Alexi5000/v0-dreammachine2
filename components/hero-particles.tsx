@@ -22,17 +22,18 @@ export const HeroParticles = memo(function HeroParticles() {
 
   const initParticles = useCallback((width: number, height: number) => {
     const particles: Particle[] = []
-    const count = Math.min(80, Math.floor((width * height) / 15000))
+    // Increased particle count for more visual impact
+    const count = Math.min(120, Math.floor((width * height) / 10000))
     
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.3 + 0.1,
-        targetOpacity: Math.random() * 0.3 + 0.1,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 3 + 1.5,
+        opacity: Math.random() * 0.5 + 0.2,
+        targetOpacity: Math.random() * 0.5 + 0.2,
       })
     }
     particlesRef.current = particles
@@ -88,10 +89,15 @@ export const HeroParticles = memo(function HeroParticles() {
         p.targetOpacity = Math.random() * 0.3 + 0.1
       }
 
-      // Draw particle with glow
+      // Draw particle with subtle glow effect
+      const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2)
+      gradient.addColorStop(0, `rgba(255, 255, 255, ${p.opacity})`)
+      gradient.addColorStop(0.5, `rgba(200, 210, 255, ${p.opacity * 0.5})`)
+      gradient.addColorStop(1, "rgba(255, 255, 255, 0)")
+      
       ctx.beginPath()
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-      ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`
+      ctx.arc(p.x, p.y, p.size * 2, 0, Math.PI * 2)
+      ctx.fillStyle = gradient
       ctx.fill()
 
       // Draw connections between nearby particles
@@ -101,12 +107,12 @@ export const HeroParticles = memo(function HeroParticles() {
         const dy = p.y - p2.y
         const dist = Math.sqrt(dx * dx + dy * dy)
 
-        if (dist < 100) {
+        if (dist < 120) {
           ctx.beginPath()
           ctx.moveTo(p.x, p.y)
           ctx.lineTo(p2.x, p2.y)
-          ctx.strokeStyle = `rgba(255, 255, 255, ${(1 - dist / 100) * 0.1})`
-          ctx.lineWidth = 0.5
+          ctx.strokeStyle = `rgba(180, 200, 255, ${(1 - dist / 120) * 0.15})`
+          ctx.lineWidth = 0.8
           ctx.stroke()
         }
       }
