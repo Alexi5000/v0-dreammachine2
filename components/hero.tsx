@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import { ShapedButton } from "@/components/ui/shaped-button"
 import { PlayIcon } from "@/components/icons"
 
@@ -87,9 +88,11 @@ export function Hero() {
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <ShapedButton variant="filled" size="md">
-            GET STARTED
-          </ShapedButton>
+          <Link href="/auth/sign-up">
+            <ShapedButton variant="filled" size="md">
+              GET STARTED
+            </ShapedButton>
+          </Link>
 
           <ShapedButton variant="outline" size="md">
             <PlayIcon className="w-5 h-5" />
