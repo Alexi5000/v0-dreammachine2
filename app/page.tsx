@@ -8,6 +8,7 @@ import { Work } from "@/components/work"
 import { Testimonials } from "@/components/testimonials"
 import { CTA } from "@/components/cta"
 import { Footer } from "@/components/footer"
+import { BiteChat } from "@/components/bite-chat"
 
 export default function Home() {
   return (
@@ -22,6 +23,9 @@ export default function Home() {
       <Pricing />
       <CTA />
       <Footer />
+      
+      {/* Compact glassmorphic chat - bite-sized interaction element */}
+      <BiteChat onboardingComplete={true} />
     </main>
   )
 }

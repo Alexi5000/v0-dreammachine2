@@ -160,8 +160,18 @@ export const HeroAIDemo = memo(function HeroAIDemo() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl"
+      className="relative flex flex-col sm:flex-row items-center gap-4 p-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl"
     >
+      {/* Close button */}
+      <button
+        onClick={() => setShowDemo(false)}
+        className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-white/40 hover:text-white/80 transition-colors"
+        aria-label="Close demo"
+      >
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
       <div className="flex-1 flex items-center gap-3">
         <input
           type="text"
@@ -216,15 +226,6 @@ export const HeroAIDemo = memo(function HeroAIDemo() {
         )}
       </AnimatePresence>
       
-      <button
-        onClick={() => setShowDemo(false)}
-        className="absolute top-2 right-2 text-white/40 hover:text-white/80 transition-colors"
-        aria-label="Close demo"
-      >
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M18 6L6 18M6 6l12 12" />
-        </svg>
-      </button>
     </motion.div>
   )
 })
