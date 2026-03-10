@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState, useCallback } from "react"
-import { motion, useInView, AnimatePresence } from "motion/react"
+import { useEffect, useState } from "react"
+import { motion, AnimatePresence } from "motion/react"
 import { SectionHeader } from "@/components/ui/section-header"
 import { ShapedButton } from "@/components/ui/shaped-button"
 import { ArrowUpRightIcon } from "@/components/icons"
@@ -19,6 +19,34 @@ interface ServiceData {
   features: Feature[]
   isLoading: boolean
   activeFeature: number
+}
+
+// Static features - no API loading needed
+const staticFeatures: Record<string, Feature[]> = {
+  "AI Brand Identity": [
+    { title: "Intelligent Logo Systems", description: "AI generates hundreds of unique logo variations that adapt to any context while maintaining brand consistency.", highlight: "Adaptive" },
+    { title: "Color Intelligence", description: "Machine learning analyzes your industry and audience to recommend the perfect color palette.", highlight: "Data-Driven" },
+    { title: "Typography Matching", description: "Automatically pair fonts that reflect your brand personality and ensure readability.", highlight: "Smart Pairing" },
+    { title: "Brand Guidelines", description: "Auto-generated comprehensive brand books with usage rules and asset libraries.", highlight: "Automated" },
+  ],
+  "Generative Design": [
+    { title: "Infinite Variations", description: "Generate thousands of unique design options in seconds, each tailored to your specifications.", highlight: "1000+ Options" },
+    { title: "Style Transfer", description: "Apply any artistic style to your designs using advanced neural networks.", highlight: "AI-Powered" },
+    { title: "Layout Optimization", description: "Algorithms that automatically arrange elements for maximum visual impact.", highlight: "Auto-Layout" },
+    { title: "Asset Generation", description: "Create custom illustrations, icons, and graphics on demand.", highlight: "On-Demand" },
+  ],
+  "Motion & Animation": [
+    { title: "Micro-Interactions", description: "Subtle animations that bring delight and improve user experience.", highlight: "60fps" },
+    { title: "Scroll Experiences", description: "Parallax effects and scroll-triggered animations that tell your story.", highlight: "Immersive" },
+    { title: "3D Motion", description: "Three-dimensional animations that add depth and engagement.", highlight: "WebGL" },
+    { title: "Lottie Export", description: "Lightweight, scalable animations that work everywhere.", highlight: "Cross-Platform" },
+  ],
+  "Web Development": [
+    { title: "Next.js & React", description: "Modern frameworks for blazing-fast, SEO-optimized web applications.", highlight: "SSR Ready" },
+    { title: "API Integration", description: "Seamless connection with any service, database, or third-party platform.", highlight: "RESTful" },
+    { title: "Performance First", description: "Optimized code that scores 95+ on Core Web Vitals.", highlight: "95+ Score" },
+    { title: "Scalable Architecture", description: "Built to handle millions of users with serverless infrastructure.", highlight: "Enterprise" },
+  ],
 }
 
 const initialServices: ServiceData[] = [
@@ -46,8 +74,8 @@ const initialServices: ServiceData[] = [
         <path d="M24 4V16M24 32V44M4 24H16M32 24H44" stroke="currentColor" strokeWidth="2" />
       </svg>
     ),
-    features: [],
-    isLoading: true,
+    features: staticFeatures["AI Brand Identity"],
+    isLoading: false,
     activeFeature: 0,
   },
   {
@@ -70,8 +98,8 @@ const initialServices: ServiceData[] = [
         <path d="M24 4V24M24 24L44 14M24 24L4 14M24 24V44" stroke="currentColor" strokeWidth="2" />
       </svg>
     ),
-    features: [],
-    isLoading: true,
+    features: staticFeatures["Generative Design"],
+    isLoading: false,
     activeFeature: 0,
   },
   {
@@ -95,8 +123,8 @@ const initialServices: ServiceData[] = [
         />
       </svg>
     ),
-    features: [],
-    isLoading: true,
+    features: staticFeatures["Motion & Animation"],
+    isLoading: false,
     activeFeature: 0,
   },
   {
@@ -126,87 +154,31 @@ const initialServices: ServiceData[] = [
         <path d="M30 28L26 32L30 36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       </svg>
     ),
-    features: [],
-    isLoading: true,
+    features: staticFeatures["Web Development"],
+    isLoading: false,
     activeFeature: 0,
   },
 ]
 
 export function Services() {
-  const [visibleCards, setVisibleCards] = useState<number[]>([])
   const [services, setServices] = useState<ServiceData[]>(initialServices)
-  const sectionRef = useRef<HTMLElement>(null)
-  const hasLoadedRef = useRef<Set<number>>(new Set())
 
   // Auto-rotate features for each service card
   useEffect(() => {
     const interval = setInterval(() => {
       setServices((prev) =>
-        prev.map((service) => {
-          if (service.features.length > 0) {
-            return {
-              ...service,
-              activeFeature: (service.activeFeature + 1) % service.features.length,
-            }
-          }
-          return service
-        })
+        prev.map((service) => ({
+          ...service,
+          activeFeature: (service.activeFeature + 1) % service.features.length,
+        }))
       )
     }, 4000)
     return () => clearInterval(interval)
   }, [])
 
-  const loadFeatures = useCallback(async (index: number) => {
-    if (hasLoadedRef.current.has(index)) return
-    hasLoadedRef.current.add(index)
-
-    const service = initialServices[index]
-    try {
-      const response = await fetch("/api/generate-features", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          serviceName: service.title,
-          serviceDescription: service.description,
-        }),
-      })
-      const data = await response.json()
-      setServices((prev) =>
-        prev.map((s, i) =>
-          i === index ? { ...s, features: data.features || [], isLoading: false } : s
-        )
-      )
-    } catch {
-      setServices((prev) =>
-        prev.map((s, i) => (i === index ? { ...s, isLoading: false } : s))
-      )
-    }
-  }, [])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Number(entry.target.getAttribute("data-index"))
-            setVisibleCards((prev) => [...new Set([...prev, index])])
-            loadFeatures(index)
-          }
-        })
-      },
-      { threshold: 0.2 }
-    )
-
-    const cards = sectionRef.current?.querySelectorAll(".service-card")
-    cards?.forEach((card) => observer.observe(card))
-
-    return () => observer.disconnect()
-  }, [loadFeatures])
-
   return (
     <section
       id="services"
-      ref={sectionRef}
       className="relative py-24 md:py-32 bg-[#0a0a0a]"
     >
       <div className="container mx-auto px-4">
@@ -282,31 +254,7 @@ export function Services() {
 
                   {/* Single Feature Card - Apple-Inspired Design */}
                   <div className="mt-8">
-                    {service.isLoading ? (
-                      // Loading skeleton
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="relative overflow-hidden rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 p-8"
-                      >
-                        <div className="flex items-center gap-3 mb-6">
-                          {[0, 1, 2, 3].map((i) => (
-                            <div
-                              key={i}
-                              className="h-1 flex-1 rounded-full bg-white/10 animate-pulse"
-                              style={{ animationDelay: `${i * 150}ms` }}
-                            />
-                          ))}
-                        </div>
-                        <div className="space-y-4">
-                          <div className="h-6 bg-white/10 rounded-lg w-1/3 animate-pulse" />
-                          <div className="h-8 bg-white/10 rounded-lg w-2/3 animate-pulse" />
-                          <div className="h-4 bg-white/5 rounded-lg w-full animate-pulse" />
-                          <div className="h-4 bg-white/5 rounded-lg w-4/5 animate-pulse" />
-                        </div>
-                      </motion.div>
-                    ) : service.features.length > 0 ? (
-                      <motion.div
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -438,7 +386,6 @@ export function Services() {
                           }}
                         />
                       </motion.div>
-                    ) : null}
                   </div>
 
                   {/* CTA Button matching hero style */}
