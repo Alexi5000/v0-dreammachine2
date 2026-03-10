@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { ShapedButton } from "@/components/ui/shaped-button"
+import { NexusLogo, MenuIcon } from "@/components/icons"
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -31,18 +33,7 @@ export function Header() {
         >
           {/* Logo */}
           <a href="#" className="flex items-center gap-2">
-            <div className="relative w-10 h-10">
-              <svg viewBox="0 0 40 40" fill="none" className="w-full h-full">
-                <rect width="40" height="40" rx="8" fill="white" />
-                <path
-                  d="M12 28V12L20 20L28 12V28"
-                  stroke="#161a20"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
+            <NexusLogo />
             <span className="text-xl font-bold uppercase text-white tracking-tight">
               NEXUS AI
             </span>
@@ -62,41 +53,13 @@ export function Header() {
           </div>
 
           {/* CTA Button */}
-          <button className="relative w-[140px] h-[48px] transition-transform duration-200 ease-out hover:scale-105 active:scale-95 cursor-pointer group">
-            <svg
-              className="absolute inset-0 w-full h-full"
-              viewBox="0 0 140 48"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M0 8C0 3.58172 3.58172 0 8 0H132C136.418 0 140 3.58172 140 8V40C140 44.4183 136.418 48 132 48H8C3.58172 48 0 44.4183 0 40V8Z"
-                fill="white"
-                className="transition-all duration-300 group-hover:fill-white/90"
-              />
-            </svg>
-            <span className="relative z-10 flex items-center justify-center w-full h-full text-[14px] font-bold uppercase text-[#161a20] tracking-wide">
-              GET STARTED
-            </span>
-          </button>
+          <ShapedButton variant="filled" size="sm" className="hidden md:block">
+            GET STARTED
+          </ShapedButton>
 
           {/* Mobile Menu Button */}
           <button className="md:hidden text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
+            <MenuIcon />
           </button>
         </nav>
       </div>

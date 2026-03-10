@@ -1,5 +1,7 @@
 "use client"
 
+import { NexusLogo } from "@/components/icons"
+
 const footerLinks = {
   services: [
     { label: "Brand Identity", href: "#" },
@@ -68,18 +70,7 @@ export function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <a href="#" className="flex items-center gap-2 mb-6">
-              <div className="relative w-10 h-10">
-                <svg viewBox="0 0 40 40" fill="none" className="w-full h-full">
-                  <rect width="40" height="40" rx="8" fill="white" />
-                  <path
-                    d="M12 28V12L20 20L28 12V28"
-                    stroke="#161a20"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
+              <NexusLogo />
               <span className="text-xl font-bold uppercase text-white tracking-tight">
                 NEXUS AI
               </span>

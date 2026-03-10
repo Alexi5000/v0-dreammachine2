@@ -1,6 +1,9 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { SectionHeader } from "@/components/ui/section-header"
+import { ShapedButton } from "@/components/ui/shaped-button"
+import { CheckIcon } from "@/components/icons"
 
 const plans = [
   {
@@ -82,21 +85,12 @@ export function Pricing() {
     >
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24">
-          <span className="inline-block text-sm font-bold uppercase text-white/50 tracking-widest mb-4">
-            Pricing
-          </span>
-          <h2
-            className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase text-white mb-6"
-            style={{ lineHeight: 1.1, letterSpacing: "-2px" }}
-          >
-            Investment That Transforms
-          </h2>
-          <p className="text-lg text-white/60 leading-relaxed">
-            Transparent pricing for exceptional AI-powered design that delivers
-            measurable results.
-          </p>
-        </div>
+        <SectionHeader
+          label="Pricing"
+          title="Investment That Transforms"
+          description="Transparent pricing for exceptional AI-powered design that delivers measurable results."
+          align="center"
+        />
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -146,20 +140,7 @@ export function Pricing() {
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center mt-0.5">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={3}
-                        stroke="currentColor"
-                        className="w-3 h-3 text-white"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4.5 12.75l6 6 9-13.5"
-                        />
-                      </svg>
+                      <CheckIcon className="text-white" />
                     </span>
                     <span className="text-white/80">{feature}</span>
                   </li>
@@ -167,34 +148,13 @@ export function Pricing() {
               </ul>
 
               {/* CTA Button */}
-              <button
-                className={`relative w-full h-[56px] transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] cursor-pointer group ${
-                  plan.popular ? "" : ""
-                }`}
+              <ShapedButton
+                variant={plan.popular ? "filled" : "outline"}
+                size="sm"
+                fullWidth
               >
-                <svg
-                  className="absolute inset-0 w-full h-full"
-                  viewBox="0 0 320 56"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="none"
-                >
-                  <path
-                    d="M0 8C0 3.58172 3.58172 0 8 0H312C316.418 0 320 3.58172 320 8V48C320 52.4183 316.418 56 312 56H8C3.58172 56 0 52.4183 0 48V8Z"
-                    fill={plan.popular ? "white" : "transparent"}
-                    stroke={plan.popular ? "white" : "rgba(255,255,255,0.3)"}
-                    strokeWidth="1"
-                    className="transition-all duration-300 group-hover:stroke-white"
-                  />
-                </svg>
-                <span
-                  className={`relative z-10 flex items-center justify-center w-full h-full text-[16px] font-bold uppercase tracking-wide ${
-                    plan.popular ? "text-[#161a20]" : "text-white"
-                  }`}
-                >
-                  {plan.price === "Custom" ? "CONTACT US" : "GET STARTED"}
-                </span>
-              </button>
+                {plan.price === "Custom" ? "CONTACT US" : "GET STARTED"}
+              </ShapedButton>
             </div>
           ))}
         </div>

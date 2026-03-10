@@ -1,6 +1,9 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { SectionHeader } from "@/components/ui/section-header"
+import { ShapedButton } from "@/components/ui/shaped-button"
+import { CheckIcon } from "@/components/icons"
 
 const steps = [
   {
@@ -73,21 +76,11 @@ export function Process() {
     >
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 md:mb-24">
-          <span className="inline-block text-sm font-bold uppercase text-white/50 tracking-widest mb-4">
-            Our Process
-          </span>
-          <h2
-            className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase text-white mb-6"
-            style={{ lineHeight: 1.1, letterSpacing: "-2px" }}
-          >
-            How We Work
-          </h2>
-          <p className="text-lg text-white/60 leading-relaxed">
-            A streamlined three-step process that combines AI efficiency with
-            human expertise for exceptional results.
-          </p>
-        </div>
+        <SectionHeader
+          label="Our Process"
+          title="How We Work"
+          description="A streamlined three-step process that combines AI efficiency with human expertise for exceptional results."
+        />
 
         {/* Process Steps */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
@@ -162,20 +155,7 @@ export function Process() {
                   }}
                 >
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-white flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={3}
-                      stroke="currentColor"
-                      className="w-3 h-3 text-[#21346e]"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12.75l6 6 9-13.5"
-                      />
-                    </svg>
+                    <CheckIcon className="text-[#21346e]" />
                   </span>
                   {detail}
                 </li>
@@ -183,24 +163,9 @@ export function Process() {
             </ul>
 
             {/* CTA Button */}
-            <button className="relative mt-12 w-[184px] h-[65px] transition-transform duration-200 ease-out hover:scale-105 active:scale-95 cursor-pointer group">
-              <svg
-                className="absolute inset-0 w-full h-full"
-                viewBox="0 0 184 65"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M0 8C0 3.58172 3.58172 0 8 0H176C180.418 0 184 3.58172 184 8V57C184 61.4183 180.418 65 176 65H8C3.58172 65 0 61.4183 0 57V8Z"
-                  fill="white"
-                  className="transition-all duration-300 group-hover:fill-white/90"
-                />
-              </svg>
-              <span className="relative z-10 flex items-center justify-center w-full h-full text-[20px] font-bold uppercase text-[#161a20]">
-                LEARN MORE
-              </span>
-            </button>
+            <ShapedButton variant="filled" size="md" className="mt-12">
+              LEARN MORE
+            </ShapedButton>
           </div>
         </div>
       </div>

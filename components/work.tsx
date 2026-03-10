@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { ShapedButton } from "@/components/ui/shaped-button"
+import { ArrowUpRightIcon } from "@/components/icons"
 
 const projects = [
   {
@@ -71,40 +73,10 @@ export function Work() {
           </div>
 
           {/* View All Button */}
-          <button className="relative w-[160px] h-[56px] transition-transform duration-200 ease-out hover:scale-105 active:scale-95 cursor-pointer group">
-            <svg
-              className="absolute inset-0 w-full h-full"
-              viewBox="0 0 160 56"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M0 8C0 3.58172 3.58172 0 8 0H152C156.418 0 160 3.58172 160 8V48C160 52.4183 156.418 56 152 56H8C3.58172 56 0 52.4183 0 48V8Z"
-                fill="transparent"
-                stroke="rgba(255,255,255,0.3)"
-                strokeWidth="1"
-                className="transition-all duration-300 group-hover:stroke-white"
-              />
-            </svg>
-            <span className="relative z-10 flex items-center justify-center gap-2 w-full h-full text-[14px] font-bold uppercase text-white tracking-wide">
-              VIEW ALL
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="w-4 h-4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-                />
-              </svg>
-            </span>
-          </button>
+          <ShapedButton variant="outline" size="sm">
+            VIEW ALL
+            <ArrowUpRightIcon className="w-4 h-4" />
+          </ShapedButton>
         </div>
 
         {/* Projects Grid */}
@@ -167,20 +139,7 @@ export function Work() {
                       : "opacity-0 translate-x-4"
                   }`}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    className="w-8 h-8 text-white"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-                    />
-                  </svg>
+                  <ArrowUpRightIcon className="w-8 h-8 text-white" />
                 </div>
               </div>
             </div>

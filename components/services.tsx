@@ -1,6 +1,9 @@
 "use client"
 
 import { useEffect, useRef, useState, useCallback } from "react"
+import { SectionHeader } from "@/components/ui/section-header"
+import { ShapedButton } from "@/components/ui/shaped-button"
+import { ArrowUpRightIcon } from "@/components/icons"
 
 interface Feature {
   title: string
@@ -185,21 +188,11 @@ export function Services() {
     >
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 md:mb-24">
-          <span className="inline-block text-sm font-bold uppercase text-white/50 tracking-widest mb-4">
-            Our Services
-          </span>
-          <h2
-            className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase text-white mb-6"
-            style={{ lineHeight: 1.1, letterSpacing: "-2px" }}
-          >
-            What We Create
-          </h2>
-          <p className="text-lg text-white/60 leading-relaxed">
-            We combine human creativity with artificial intelligence to deliver
-            design solutions that push boundaries and exceed expectations.
-          </p>
-        </div>
+        <SectionHeader
+          label="Our Services"
+          title="What We Create"
+          description="We combine human creativity with artificial intelligence to deliver design solutions that push boundaries and exceed expectations."
+        />
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -298,20 +291,7 @@ export function Services() {
                                 {feature.highlight}
                               </span>
                               {/* Arrow Icon */}
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={2.5}
-                                stroke="currentColor"
-                                className="w-4 h-4 text-[#21346e]/40 group-hover/feature:text-[#21346e] group-hover/feature:translate-x-0.5 group-hover/feature:-translate-y-0.5 transition-all duration-300"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-                                />
-                              </svg>
+                              <ArrowUpRightIcon className="w-4 h-4 text-[#21346e]/40 group-hover/feature:text-[#21346e] group-hover/feature:translate-x-0.5 group-hover/feature:-translate-y-0.5 transition-all duration-300" />
                             </div>
                             
                             {/* Main Content */}
@@ -333,27 +313,14 @@ export function Services() {
                   </div>
 
                   {/* CTA Button matching hero style */}
-                  <button
+                  <ShapedButton
+                    variant="filled"
+                    size="sm"
                     onClick={() => setExpandedCard(expandedCard === index ? null : index)}
-                    className="relative mt-8 w-[160px] h-[50px] transition-transform duration-200 ease-out hover:scale-105 active:scale-95 cursor-pointer group/btn"
+                    className="mt-8"
                   >
-                    <svg
-                      className="absolute inset-0 w-full h-full"
-                      viewBox="0 0 160 50"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      preserveAspectRatio="none"
-                    >
-                      <path
-                        d="M0 8C0 3.58172 3.58172 0 8 0H152C156.418 0 160 3.58172 160 8V42C160 46.4183 156.418 50 152 50H8C3.58172 50 0 46.4183 0 42V8Z"
-                        fill="white"
-                        className="transition-all duration-300 group-hover/btn:fill-white/90"
-                      />
-                    </svg>
-                    <span className="relative z-10 flex items-center justify-center w-full h-full text-[16px] font-bold uppercase text-[#161a20]">
-                      LEARN MORE
-                    </span>
-                  </button>
+                    LEARN MORE
+                  </ShapedButton>
                 </div>
               </div>
             </div>
