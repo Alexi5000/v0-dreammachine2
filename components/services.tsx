@@ -189,8 +189,8 @@ export function Services() {
           description="We combine human creativity with artificial intelligence to deliver design solutions that push boundaries and exceed expectations."
         />
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Services Grid - Uniform sizing with perfect alignment */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -205,26 +205,18 @@ export function Services() {
               }}
               className="service-card group relative rounded-2xl overflow-hidden"
             >
-              {/* Card with Apple-inspired glass background */}
-              <div className="relative bg-gradient-to-br from-[#1a1f35] via-[#21346e] to-[#1a2850] min-h-[480px] p-8 md:p-10 rounded-2xl">
-                {/* Noise texture overlay for depth */}
-                <div className="absolute inset-0 opacity-[0.015] rounded-2xl" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")" }} />
+              {/* Card with premium styling matching brand scroller */}
+              <div className="relative h-full flex flex-col bg-gradient-to-br from-[#21346e] via-[#1a2a5a] to-[#151f45] p-8 md:p-10 rounded-2xl border border-white/10 transition-all duration-500 hover:border-[#fbbf24]/30 hover:shadow-[0_0_50px_-15px_rgba(251,191,36,0.25)]">
                 
-                {/* Animated gradient orbs */}
+                {/* Top yellow accent line on hover */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#fbbf24] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Corner glow effect */}
+                <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#fbbf24]/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                
+                {/* Animated gradient orb */}
                 <motion.div
-                  className="absolute -top-32 -right-32 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl"
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.1, 0.15, 0.1],
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                <motion.div
-                  className="absolute -bottom-32 -left-32 w-80 h-80 bg-indigo-400/10 rounded-full blur-3xl"
+                  className="absolute -bottom-32 -left-32 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none"
                   animate={{
                     scale: [1, 1.15, 1],
                     opacity: [0.1, 0.2, 0.1],
@@ -233,170 +225,154 @@ export function Services() {
                     duration: 8,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: 1,
+                    delay: index * 0.5,
                   }}
                 />
 
-                {/* Content */}
-                <div className="relative z-10">
-                  {/* Icon */}
-                  <div className="text-white group-hover:scale-110 transition-transform duration-500 mb-6">
-                    {service.icon}
+                {/* Content wrapper with flex-grow for uniform height */}
+                <div className="relative z-10 flex flex-col flex-1">
+                  {/* Header row: Icon with yellow accent */}
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="text-white group-hover:text-[#fbbf24] transition-colors duration-500 group-hover:scale-110 transform-gpu">
+                      {service.icon}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#fbbf24] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="w-1 h-1 rounded-full bg-[#fbbf24]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75" />
+                    </div>
                   </div>
 
-                  {/* Title & Description */}
-                  <h3 className="text-2xl md:text-3xl font-bold uppercase text-white mb-4 tracking-tight">
+                  {/* Title - White with tight tracking */}
+                  <h3 className="text-2xl md:text-[28px] font-bold uppercase text-white mb-4 tracking-tight leading-tight">
                     {service.title}
                   </h3>
-                  <p className="text-white/80 leading-relaxed mb-8">
+                  
+                  {/* Description with improved contrast */}
+                  <p className="text-white/70 leading-relaxed mb-8 group-hover:text-white/90 transition-colors duration-500">
                     {service.description}
                   </p>
 
-                  {/* Single Feature Card - Apple-Inspired Design */}
-                  <div className="mt-8">
+                  {/* Feature Card - Refined with yellow accents */}
+                  <div className="flex-1 flex flex-col">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                        className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10 group/card cursor-pointer"
-                        onClick={() => {
-                          setServices((prev) =>
-                            prev.map((s, i) =>
-                              i === index
-                                ? { ...s, activeFeature: (s.activeFeature + 1) % s.features.length }
-                                : s
-                            )
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      className="relative flex-1 overflow-hidden rounded-xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10 group/card cursor-pointer hover:border-[#fbbf24]/20 transition-all duration-500"
+                      onClick={() => {
+                        setServices((prev) =>
+                          prev.map((s, i) =>
+                            i === index
+                              ? { ...s, activeFeature: (s.activeFeature + 1) % s.features.length }
+                              : s
                           )
-                        }}
-                      >
-                        {/* Animated gradient orb */}
-                        <motion.div
-                          className="absolute -top-32 -right-32 w-64 h-64 bg-white/[0.03] rounded-full blur-3xl"
-                          animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.3, 0.5, 0.3],
-                          }}
-                          transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
-                        />
-                        
-                        {/* Progress indicators */}
-                        <div className="flex items-center gap-2 px-8 pt-6">
-                          {service.features.map((_, featureIndex) => (
-                            <motion.button
-                              key={featureIndex}
-                              className="relative h-1 flex-1 rounded-full overflow-hidden bg-white/10"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                setServices((prev) =>
-                                  prev.map((s, i) =>
-                                    i === index ? { ...s, activeFeature: featureIndex } : s
-                                  )
+                        )
+                      }}
+                    >
+                      {/* Progress indicators with yellow active state */}
+                      <div className="flex items-center gap-2 px-6 pt-5">
+                        {service.features.map((_, featureIndex) => (
+                          <motion.button
+                            key={featureIndex}
+                            className="relative h-1 flex-1 rounded-full overflow-hidden bg-white/10"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              setServices((prev) =>
+                                prev.map((s, i) =>
+                                  i === index ? { ...s, activeFeature: featureIndex } : s
                                 )
-                              }}
-                            >
-                              {service.activeFeature === featureIndex && (
-                                <motion.div
-                                  className="absolute inset-0 bg-white rounded-full"
-                                  layoutId={`progress-${index}`}
-                                  transition={{ duration: 0.3, ease: "easeOut" }}
-                                />
-                              )}
-                            </motion.button>
-                          ))}
-                        </div>
-
-                        {/* Card content */}
-                        <div className="relative p-8 pt-6 min-h-[200px]">
-                          <AnimatePresence mode="wait">
-                            <motion.div
-                              key={service.activeFeature}
-                              initial={{ opacity: 0, x: 20, filter: "blur(4px)" }}
-                              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                              exit={{ opacity: 0, x: -20, filter: "blur(4px)" }}
-                              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                            >
-                              {/* Highlight badge */}
-                              <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 }}
-                                className="inline-flex items-center gap-2 mb-4"
-                              >
-                                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10">
-                                  <span className="text-white font-bold text-sm">
-                                    {service.activeFeature + 1}
-                                  </span>
-                                </span>
-                                <span className="text-xs font-bold uppercase text-white/50 tracking-widest">
-                                  {service.features[service.activeFeature]?.highlight}
-                                </span>
-                              </motion.div>
-
-                              {/* Title */}
-                              <motion.h4
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.15 }}
-                                className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight leading-tight"
-                              >
-                                {service.features[service.activeFeature]?.title}
-                              </motion.h4>
-
-                              {/* Description */}
-                              <motion.p
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                                className="text-white/60 leading-relaxed text-base max-w-lg"
-                              >
-                                {service.features[service.activeFeature]?.description}
-                              </motion.p>
-                            </motion.div>
-                          </AnimatePresence>
-
-                          {/* Arrow indicator */}
-                          <motion.div
-                            className="absolute bottom-8 right-8"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
+                              )
+                            }}
                           >
-                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 group-hover/card:bg-white/20 transition-colors duration-300">
-                              <ArrowUpRightIcon className="w-5 h-5 text-white group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 transition-transform duration-300" />
-                            </div>
-                          </motion.div>
-                        </div>
+                            {service.activeFeature === featureIndex && (
+                              <motion.div
+                                className="absolute inset-0 bg-[#fbbf24] rounded-full"
+                                layoutId={`progress-${index}`}
+                                transition={{ duration: 0.3, ease: "easeOut" }}
+                              />
+                            )}
+                          </motion.button>
+                        ))}
+                      </div>
 
-                        {/* Bottom gradient line */}
+                      {/* Card content with fixed height for uniformity */}
+                      <div className="relative p-6 min-h-[180px] flex flex-col">
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={service.activeFeature}
+                            initial={{ opacity: 0, x: 20, filter: "blur(4px)" }}
+                            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                            exit={{ opacity: 0, x: -20, filter: "blur(4px)" }}
+                            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            className="flex-1"
+                          >
+                            {/* Highlight badge with yellow accent */}
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.1 }}
+                              className="inline-flex items-center gap-3 mb-3"
+                            >
+                              <span className="text-[#fbbf24] text-sm font-bold tracking-wider">
+                                0{service.activeFeature + 1}
+                              </span>
+                              <div className="w-6 h-px bg-gradient-to-r from-[#fbbf24]/60 to-transparent" />
+                              <span className="text-xs font-bold uppercase text-[#fbbf24]/70 tracking-widest">
+                                {service.features[service.activeFeature]?.highlight}
+                              </span>
+                            </motion.div>
+
+                            {/* Title */}
+                            <motion.h4
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.15 }}
+                              className="text-xl md:text-2xl font-bold text-white mb-2 tracking-tight leading-tight"
+                            >
+                              {service.features[service.activeFeature]?.title}
+                            </motion.h4>
+
+                            {/* Description */}
+                            <motion.p
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.2 }}
+                              className="text-white/60 leading-relaxed text-sm md:text-[15px]"
+                            >
+                              {service.features[service.activeFeature]?.description}
+                            </motion.p>
+                          </motion.div>
+                        </AnimatePresence>
+
+                        {/* Arrow indicator */}
                         <motion.div
-                          className="absolute bottom-0 left-0 right-0 h-px"
-                          style={{
-                            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
-                          }}
-                          animate={{
-                            opacity: [0.3, 0.6, 0.3],
-                          }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
-                        />
-                      </motion.div>
+                          className="absolute bottom-5 right-5"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 group-hover/card:bg-[#fbbf24]/20 transition-colors duration-300">
+                            <ArrowUpRightIcon className="w-4 h-4 text-white group-hover/card:text-[#fbbf24] group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 transition-all duration-300" />
+                          </div>
+                        </motion.div>
+                      </div>
+
+                      {/* Bottom yellow accent line */}
+                      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#fbbf24] via-[#fbbf24]/50 to-transparent transform origin-left scale-x-0 group-hover/card:scale-x-100 transition-transform duration-700" />
+                    </motion.div>
                   </div>
 
-                  {/* CTA Button matching hero style */}
+                  {/* CTA Button with yellow hover */}
                   <ShapedButton
                     variant="filled"
                     size="sm"
-                    className="mt-8"
+                    className="mt-8 self-start"
                   >
                     LEARN MORE
                   </ShapedButton>
                 </div>
+                
+                {/* Bottom accent bar */}
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#fbbf24] via-[#fbbf24]/50 to-transparent transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
               </div>
             </motion.div>
           ))}
