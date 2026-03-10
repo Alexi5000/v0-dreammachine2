@@ -9,22 +9,22 @@ const projects = [
   {
     title: "Quantum Finance",
     category: "Brand Identity",
-    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=600&fit=crop",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed%20%289%29-VaJROYTy4OotRD6x7gaJmezRZrOo6u.jpg",
   },
   {
     title: "Neural Health",
     category: "Web Design",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed%20%2810%29-TCeWBut2pCUYNvNaA7QcSLjfb7ncjA.jpg",
   },
   {
     title: "Echo Studios",
     category: "Motion Design",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed%20%2811%29-ObenzTVwLlK6NtPBUFbDVQTV9CFsoj.jpg",
   },
   {
     title: "Velocity Tech",
     category: "Brand Identity",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/unnamed%20%2812%29-DRLidHChfuX7D4Xyl22K0JUku4I7Z2.jpg",
   },
 ]
 
