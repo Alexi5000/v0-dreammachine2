@@ -29,65 +29,124 @@ const testimonials = [
   },
 ]
 
-// Premium brand logos as SVG components - bright white, polished aesthetic
+// Premium brand logos as SVG components - refined, high-end designs
 const BrandLogos = {
   Quantum: () => (
-    <svg viewBox="0 0 140 32" fill="none" className="h-6 md:h-8 w-auto">
-      <path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4zm0 20c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z" fill="white"/>
-      <path d="M16 10a6 6 0 100 12 6 6 0 000-12zm0 8a2 2 0 110-4 2 2 0 010 4z" fill="white"/>
-      <path d="M38 10h3.2l5.6 8.4V10H50v14h-3l-5.8-8.6V24H38V10zm18.4 0h3.2v14h-3.2V10zm9.6 0h3.2v11h6.8v3H66V10zm20.8 0h3.2v14H87V17l-3.6 5.4h-.8L79 17v7h-3.2V10h2.8l4.2 6.2 4-6.2zm12.8 0h10.4v3h-7.2v2.4h6.4v3h-6.4v2.6h7.4v3H99.6V10zm16 0h3.2l5.6 8.4V10h3.2v14h-3l-5.8-8.6V24h-3.2V10z" fill="white"/>
+    <svg viewBox="0 0 160 40" fill="none" className="h-8 md:h-10 w-auto">
+      {/* Quantum mark - orbital electron paths */}
+      <g className="transform-gpu">
+        <ellipse cx="20" cy="20" rx="14" ry="6" stroke="white" strokeWidth="1.5" fill="none" transform="rotate(-30 20 20)"/>
+        <ellipse cx="20" cy="20" rx="14" ry="6" stroke="white" strokeWidth="1.5" fill="none" transform="rotate(30 20 20)"/>
+        <ellipse cx="20" cy="20" rx="14" ry="6" stroke="white" strokeWidth="1.5" fill="none" transform="rotate(90 20 20)"/>
+        <circle cx="20" cy="20" r="3.5" fill="white"/>
+        <circle cx="28" cy="12" r="2" fill="white"/>
+        <circle cx="12" cy="28" r="2" fill="white"/>
+        <circle cx="28" cy="28" r="1.5" fill="white" opacity="0.7"/>
+      </g>
+      {/* Wordmark */}
+      <text x="44" y="26" fill="white" fontFamily="system-ui, -apple-system, sans-serif" fontSize="18" fontWeight="600" letterSpacing="0.02em">QUANTUM</text>
     </svg>
   ),
   Echo: () => (
-    <svg viewBox="0 0 100 32" fill="none" className="h-6 md:h-8 w-auto">
-      <rect x="4" y="8" width="4" height="16" rx="2" fill="white"/>
-      <rect x="12" y="4" width="4" height="24" rx="2" fill="white"/>
-      <rect x="20" y="10" width="4" height="12" rx="2" fill="white"/>
-      <path d="M36 10h10v3h-6.8v2.4h6v3h-6V21h7v3H36V10zm18.4 7c0-4.2 3-7.2 7.2-7.2 2.6 0 4.8 1.2 6 3.2l-2.8 1.6c-.7-1.2-1.8-1.8-3.2-1.8-2.2 0-4 1.8-4 4.2s1.8 4.2 4 4.2c1.4 0 2.5-.6 3.2-1.8l2.8 1.6c-1.2 2-3.4 3.2-6 3.2-4.2 0-7.2-3-7.2-7.2zm17.6-7h3.2v5.6H81V10h3.2v14H81v-5.4h-5.8V24H72V10zm18.8-.2c4.2 0 7.2 3 7.2 7.2s-3 7.2-7.2 7.2-7.2-3-7.2-7.2 3-7.2 7.2-7.2zm0 11.4c2.2 0 4-1.8 4-4.2s-1.8-4.2-4-4.2-4 1.8-4 4.2 1.8 4.2 4 4.2z" fill="white"/>
+    <svg viewBox="0 0 130 40" fill="none" className="h-8 md:h-10 w-auto">
+      {/* Echo mark - sound wave ripples */}
+      <g className="transform-gpu">
+        <path d="M20 10 C24 10, 28 14, 28 20 C28 26, 24 30, 20 30" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        <path d="M20 14 C22 14, 24 16, 24 20 C24 24, 22 26, 20 26" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        <path d="M20 18 C21 18, 21.5 19, 21.5 20 C21.5 21, 21 22, 20 22" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        <circle cx="14" cy="20" r="4" fill="white"/>
+      </g>
+      {/* Wordmark */}
+      <text x="40" y="26" fill="white" fontFamily="system-ui, -apple-system, sans-serif" fontSize="18" fontWeight="600" letterSpacing="0.08em">ECHO</text>
     </svg>
   ),
   Neural: () => (
-    <svg viewBox="0 0 120 32" fill="none" className="h-6 md:h-8 w-auto">
-      <circle cx="8" cy="16" r="4" fill="white"/>
-      <circle cx="20" cy="8" r="3" fill="white"/>
-      <circle cx="20" cy="24" r="3" fill="white"/>
-      <path d="M8 16l12-8M8 16l12 8M20 8v16" stroke="white" strokeWidth="1.5"/>
-      <path d="M36 10h3.2l5.6 8.4V10H48v14h-3l-5.8-8.6V24H36V10zm18.4 0h10v3h-6.8v2.4h6v3h-6V21h7v3H54.4V10zm15.8 0h3.2v7.2c0 2.4 1.2 3.8 3.2 3.8s3.2-1.4 3.2-3.8V10h3.2v7.4c0 4.2-2.6 6.8-6.4 6.8s-6.4-2.6-6.4-6.8V10zm18 0h6.8c3.4 0 5.4 2 5.4 4.8 0 2.2-1.2 3.8-3.2 4.4l3.8 4.8h-4l-3.4-4.4h-2.2V24h-3.2V10zm6.4 6.8c1.4 0 2.4-.8 2.4-2s-1-2-2.4-2h-3.2v4h3.2zm13.4-6.8h3l5.2 14h-3.4l-1-2.8h-4.8l-1 2.8h-3.2l5.2-14zm2.8 8.4l-1.6-4.6-1.6 4.6h3.2zm10-8.4h3.2v11h6.8v3H121V10z" fill="white"/>
+    <svg viewBox="0 0 150 40" fill="none" className="h-8 md:h-10 w-auto">
+      {/* Neural mark - network nodes */}
+      <g className="transform-gpu">
+        <circle cx="12" cy="20" r="4" fill="white"/>
+        <circle cx="24" cy="10" r="3" fill="white"/>
+        <circle cx="24" cy="30" r="3" fill="white"/>
+        <circle cx="36" cy="16" r="2.5" fill="white"/>
+        <circle cx="36" cy="24" r="2.5" fill="white"/>
+        <line x1="12" y1="20" x2="24" y2="10" stroke="white" strokeWidth="1.2"/>
+        <line x1="12" y1="20" x2="24" y2="30" stroke="white" strokeWidth="1.2"/>
+        <line x1="24" y1="10" x2="36" y2="16" stroke="white" strokeWidth="1.2"/>
+        <line x1="24" y1="30" x2="36" y2="24" stroke="white" strokeWidth="1.2"/>
+        <line x1="24" y1="10" x2="24" y2="30" stroke="white" strokeWidth="1" opacity="0.5"/>
+        <line x1="36" y1="16" x2="36" y2="24" stroke="white" strokeWidth="1" opacity="0.5"/>
+      </g>
+      {/* Wordmark */}
+      <text x="50" y="26" fill="white" fontFamily="system-ui, -apple-system, sans-serif" fontSize="18" fontWeight="600" letterSpacing="0.04em">NEURAL</text>
     </svg>
   ),
   Velocity: () => (
-    <svg viewBox="0 0 130 32" fill="none" className="h-6 md:h-8 w-auto">
-      <path d="M4 10h3.4l4.6 10 4.6-10h3.4l-6.4 14h-3.2L4 10z" fill="white"/>
-      <path d="M22 10h10v3h-6.8v2.4h6v3h-6V21h7v3H22V10zm14.4 0h3.2v11h6.8v3H36.4V10zm15.2-.2c4.2 0 7.2 3 7.2 7.2s-3 7.2-7.2 7.2-7.2-3-7.2-7.2 3-7.2 7.2-7.2zm0 11.4c2.2 0 4-1.8 4-4.2s-1.8-4.2-4-4.2-4 1.8-4 4.2 1.8 4.2 4 4.2zm14-11.2c4.2 0 7 3 7 7.2s-2.8 7.2-7 7.2-7-3-7.2-7.2 2.8-7.2 7.2-7.2zm0 11.4c2.2 0 3.8-1.8 3.8-4.2s-1.6-4.2-3.8-4.2-3.8 1.8-3.8 4.2 1.6 4.2 3.8 4.2zm14.4-11.4c4 0 6.4 2.6 6.4 6.8V24h-3.2v-7.2c0-2.4-1.2-3.8-3.2-3.8s-3.2 1.4-3.2 3.8V24H97V10h3.2v1.4c.8-1 2.2-1.6 3.8-1.6zm12.6 0h3.2v14h-3.2V10zm9.8 0h10.4v3h-3.6v11h-3.2V13h-3.6v-3zm14.2 0h3.2l-4.6 8.2V24h-3.2v-5.8L108.4 10h3.4l2.8 5 2.8-5z" fill="white"/>
-      <path d="M8 16l8-6v12l-8-6z" fill="white" fillOpacity="0.3"/>
+    <svg viewBox="0 0 170 40" fill="none" className="h-8 md:h-10 w-auto">
+      {/* Velocity mark - dynamic V with motion lines */}
+      <g className="transform-gpu">
+        <path d="M8 10 L20 30 L32 10" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+        <line x1="4" y1="14" x2="12" y2="14" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.6"/>
+        <line x1="6" y1="18" x2="14" y2="18" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.4"/>
+        <line x1="8" y1="22" x2="16" y2="22" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.2"/>
+        <circle cx="20" cy="30" r="2" fill="white"/>
+      </g>
+      {/* Wordmark */}
+      <text x="44" y="26" fill="white" fontFamily="system-ui, -apple-system, sans-serif" fontSize="18" fontWeight="600" letterSpacing="0.02em">VELOCITY</text>
     </svg>
   ),
   Apex: () => (
-    <svg viewBox="0 0 100 32" fill="none" className="h-6 md:h-8 w-auto">
-      <path d="M4 24l8-14h3l8 14h-3.4l-1.6-3H9l-1.6 3H4zm6.4-6h5.2l-2.6-5-2.6 5z" fill="white"/>
-      <path d="M26 10h6.8c3.8 0 6.2 2.2 6.2 5.4 0 3.2-2.4 5.4-6.2 5.4H29.2V24H26V10zm6.4 7.8c2 0 3.2-1 3.2-2.4s-1.2-2.4-3.2-2.4H29.2v4.8h3.2zm10.6-7.8h10v3H46.2v2.4h6v3h-6V21h7.2v3H43V10zm14.6 0h3.4l3.2 5 3.2-5h3.4l-5 7.4 5.2 6.6h-3.4L64.2 19l-3.4 5h-3.4l5.2-6.6-5-7.4z" fill="white"/>
-      <polygon points="16,4 20,12 12,12" fill="white" fillOpacity="0.4"/>
+    <svg viewBox="0 0 130 40" fill="none" className="h-8 md:h-10 w-auto">
+      {/* Apex mark - mountain peak / upward triangle */}
+      <g className="transform-gpu">
+        <path d="M20 8 L32 32 L8 32 Z" fill="none" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
+        <path d="M20 15 L26 27 L14 27 Z" fill="white" opacity="0.3"/>
+        <line x1="20" y1="8" x2="20" y2="4" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+        <circle cx="20" cy="3" r="1.5" fill="white"/>
+      </g>
+      {/* Wordmark */}
+      <text x="44" y="26" fill="white" fontFamily="system-ui, -apple-system, sans-serif" fontSize="18" fontWeight="700" letterSpacing="0.06em">APEX</text>
     </svg>
   ),
   Prism: () => (
-    <svg viewBox="0 0 110 32" fill="none" className="h-6 md:h-8 w-auto">
-      <path d="M4 8l12 8-12 8V8z" fill="white"/>
-      <path d="M8 16l8-5.3v10.6L8 16z" fill="white" fillOpacity="0.4"/>
-      <path d="M28 10h6.8c3.8 0 6.2 2.2 6.2 5.4 0 3.2-2.4 5.4-6.2 5.4h-3.6V24H28V10zm6.4 7.8c2 0 3.2-1 3.2-2.4s-1.2-2.4-3.2-2.4h-3.2v4.8h3.2zm10.6-7.8h6.8c3.4 0 5.4 2 5.4 4.8 0 2.2-1.2 3.8-3.2 4.4l3.8 4.8h-4l-3.4-4.4H48V24h-3V10zm6.4 6.8c1.4 0 2.4-.8 2.4-2s-1-2-2.4-2H48v4h3.4zm10.6-6.8h3.2v14H62V10zm8 7.8l-4.2-7.8h3.6l2.4 4.8 2.4-4.8h3.6l-4.2 7.8V24h-3.6v-6.2zm14.8-7.8h4.8l3.6 9.6 3.6-9.6h4.8v14h-3.2v-9.8l-3.8 9.8h-2.8l-3.8-9.8V24h-3.2V10z" fill="white"/>
+    <svg viewBox="0 0 140 40" fill="none" className="h-8 md:h-10 w-auto">
+      {/* Prism mark - light refraction */}
+      <g className="transform-gpu">
+        <path d="M8 32 L20 8 L32 32 Z" fill="none" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
+        <line x1="34" y1="20" x2="38" y2="16" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="34" y1="20" x2="38" y2="20" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="34" y1="20" x2="38" y2="24" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="4" y1="20" x2="14" y2="20" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M14 20 L26 20" stroke="white" strokeWidth="1" opacity="0.4"/>
+      </g>
+      {/* Wordmark */}
+      <text x="48" y="26" fill="white" fontFamily="system-ui, -apple-system, sans-serif" fontSize="18" fontWeight="600" letterSpacing="0.05em">PRISM</text>
     </svg>
   ),
   Horizon: () => (
-    <svg viewBox="0 0 130 32" fill="none" className="h-6 md:h-8 w-auto">
-      <path d="M4 16c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-      <circle cx="16" cy="16" r="3" fill="white"/>
-      <path d="M36 10h3.2v5.6h5.6V10H48v14h-3.2v-5.4h-5.6V24H36V10zm17.2-.2c4.2 0 7.2 3 7.2 7.2s-3 7.2-7.2 7.2-7.2-3-7.2-7.2 3-7.2 7.2-7.2zm0 11.4c2.2 0 4-1.8 4-4.2s-1.8-4.2-4-4.2-4 1.8-4 4.2 1.8 4.2 4 4.2zm12-11.2h6.8c3.4 0 5.4 2 5.4 4.8 0 2.2-1.2 3.8-3.2 4.4l3.8 4.8h-4l-3.4-4.4H68.4V24h-3.2V10zm6.4 6.8c1.4 0 2.4-.8 2.4-2s-1-2-2.4-2h-3.2v4h3.2zm10.4-6.8h3.2v14H82V10zm8.2 0h11v3h-3.9v11h-3.2V13H86v-3zm14.4 0h3.2l5.6 8.4V10h3.2v14h-3l-5.8-8.6V24h-3.2V10z" fill="white"/>
+    <svg viewBox="0 0 165 40" fill="none" className="h-8 md:h-10 w-auto">
+      {/* Horizon mark - sun rising over line */}
+      <g className="transform-gpu">
+        <path d="M4 26 L36 26" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M20 26 A12 12 0 0 1 32 26" fill="none" stroke="white" strokeWidth="2"/>
+        <path d="M8 26 A12 12 0 0 1 20 26" fill="none" stroke="white" strokeWidth="2"/>
+        <circle cx="20" cy="18" r="6" fill="white"/>
+        <line x1="20" y1="8" x2="20" y2="10" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="28" y1="12" x2="26.5" y2="13.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="12" y1="12" x2="13.5" y2="13.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+      </g>
+      {/* Wordmark */}
+      <text x="46" y="26" fill="white" fontFamily="system-ui, -apple-system, sans-serif" fontSize="18" fontWeight="600" letterSpacing="0.03em">HORIZON</text>
     </svg>
   ),
   Zenith: () => (
-    <svg viewBox="0 0 110 32" fill="none" className="h-6 md:h-8 w-auto">
-      <path d="M4 10h11l-7 11h8v3H4l7-11H4v-3z" fill="white"/>
-      <path d="M20 10h10v3h-6.8v2.4h6v3h-6V21h7v3H20V10zm14.6 0h3.2l5.6 8.4V10H47v14h-3l-5.8-8.6V24h-3.2V10zm16.8 0h3.2v14h-3.2V10zm10.8 0h10.4v3H69v11h-3.2V13h-3.6v-3zm13.4 0h3.2v5.6h5.6V10H88v14h-3.2v-5.4h-5.6V24h-3.2V10z" fill="white"/>
-      <path d="M10 8l4 4H6l4-4z" fill="white" fillOpacity="0.5"/>
+    <svg viewBox="0 0 145 40" fill="none" className="h-8 md:h-10 w-auto">
+      {/* Zenith mark - stylized Z with star */}
+      <g className="transform-gpu">
+        <path d="M8 10 L32 10 L8 30 L32 30" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        <polygon points="34,8 35.5,12 40,12 36.5,15 38,19 34,16 30,19 31.5,15 28,12 32.5,12" fill="white"/>
+      </g>
+      {/* Wordmark */}
+      <text x="50" y="26" fill="white" fontFamily="system-ui, -apple-system, sans-serif" fontSize="18" fontWeight="600" letterSpacing="0.04em">ZENITH</text>
     </svg>
   ),
 }
