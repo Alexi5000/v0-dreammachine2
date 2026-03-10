@@ -23,6 +23,8 @@
   --border: #222222;
   --input: #1a1a1a;
   --ring: #21346e;
+  --accent-yellow: #fbbf24;
+  --accent-yellow-foreground: #0a0a0a;
   --chart-1: #21346e;
   --chart-2: #3a4f8a;
   --chart-3: #5269a6;
@@ -61,6 +63,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-yellow-foreground: var(--accent-yellow-foreground);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
