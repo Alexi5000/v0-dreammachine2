@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { DashboardShell } from "@/components/dashboard/shell"
+import { BiteChat } from "@/components/bite-chat"
 
 export default async function DashboardLayout({
   children,
@@ -26,12 +27,16 @@ export default async function DashboardLayout({
   const userName = profile?.full_name || user.user_metadata?.full_name || "User"
 
   return (
-    <DashboardShell
-      userName={userName}
-      userEmail={userEmail}
-      isAdmin={isAdmin}
-    >
-      {children}
-    </DashboardShell>
+    <>
+      <DashboardShell
+        userName={userName}
+        userEmail={userEmail}
+        isAdmin={isAdmin}
+      >
+        {children}
+      </DashboardShell>
+      {/* Glassmorphic bite-sized chat - appears after onboarding */}
+      <BiteChat onboardingComplete={true} />
+    </>
   )
 }
