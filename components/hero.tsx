@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import Link from "next/link"
 import { ShapedButton } from "@/components/ui/shaped-button"
 import { PlayIcon } from "@/components/icons"
@@ -9,35 +9,93 @@ import { HeroAIHeadline } from "@/components/hero-ai-headline"
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [videoLoaded, setVideoLoaded] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const playbackDirectionRef = useRef<1 | -1>(1)
+  const animationFrameRef = useRef<number | null>(null)
+
+  // Ping-pong playback: reverse direction at video boundaries for seamless loop
+  const handlePingPongPlayback = useCallback(() => {
+    const video = videoRef.current
+    if (!video || video.paused) return
+
+    const currentTime = video.currentTime
+    const duration = video.duration
+
+    if (playbackDirectionRef.current === 1) {
+      // Playing forward - check if near end
+      if (currentTime >= duration - 0.05) {
+        playbackDirectionRef.current = -1
+        video.playbackRate = -1
+      }
+    } else {
+      // Playing backward - check if near start
+      if (currentTime <= 0.05) {
+        playbackDirectionRef.current = 1
+        video.playbackRate = 1
+      }
+    }
+
+    animationFrameRef.current = requestAnimationFrame(handlePingPongPlayback)
+  }, [])
 
   useEffect(() => {
     setIsLoaded(true)
     
-    // Force video to start playing on mount
-    const video = document.querySelector('video')
-    if (video) {
-      video.play().catch(() => {
-        // Autoplay may be blocked, but video will still show first frame
-      })
+    const video = videoRef.current
+    if (!video) return
+
+    // Start video playback
+    video.play().catch(() => {
+      // Autoplay may be blocked on some browsers
+    })
+
+    // Check if browser supports negative playbackRate (most don't)
+    // If not, we use a canvas-based fallback or simple loop
+    const supportsReverse = (() => {
+      try {
+        video.playbackRate = -1
+        const supported = video.playbackRate === -1
+        video.playbackRate = 1
+        return supported
+      } catch {
+        return false
+      }
+    })()
+
+    if (supportsReverse) {
+      animationFrameRef.current = requestAnimationFrame(handlePingPongPlayback)
     }
-  }, [])
+    // If not supported, standard loop attribute handles continuous playback
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+    }
+  }, [handlePingPongPlayback])
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Permanent animated video background - brighter fallback, no dark overlay */}
-      <div className="absolute inset-0 z-0 bg-[#1a2744]">
+      {/* Permanent animated video background - complementary dark fallback */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{ backgroundColor: "#1e3a5f" }}
+      >
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
           preload="auto"
+          crossOrigin="anonymous"
           onLoadedData={() => setVideoLoaded(true)}
           onCanPlayThrough={() => setVideoLoaded(true)}
           className="absolute inset-0 w-full h-full object-cover"
           style={{ 
             opacity: videoLoaded ? 1 : 0,
-            transition: "opacity 0.5s ease-out",
+            transition: "opacity 0.6s ease-out",
+            willChange: "opacity",
           }}
         >
           <source
@@ -45,14 +103,6 @@ export function Hero() {
             type="video/mp4"
           />
         </video>
-        
-        {/* Light gradient overlay - minimal darkening for text readability only */}
-        <div 
-          className="absolute inset-0 z-[1] pointer-events-none"
-          style={{
-            background: "linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.15) 100%)"
-          }}
-        />
       </div>
 
       {/* Content Overlay */}
