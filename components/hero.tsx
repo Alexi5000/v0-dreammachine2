@@ -4,9 +4,13 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ShapedButton } from "@/components/ui/shaped-button"
 import { PlayIcon } from "@/components/icons"
+import { HeroParticles } from "@/components/hero-particles"
+import { HeroAIHeadline } from "@/components/hero-ai-headline"
+import { HeroAIDemo } from "@/components/hero-ai-demo"
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [videoLoaded, setVideoLoaded] = useState(false)
 
   useEffect(() => {
     setIsLoaded(true)
@@ -14,13 +18,16 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen bg-[#21346e] overflow-hidden">
-      {/* Background Video */}
+      {/* Background Video - Ive #4: Fades in last after content settles */}
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        onLoadedData={() => setVideoLoaded(true)}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+          videoLoaded && isLoaded ? "opacity-100" : "opacity-0"
+        }`}
       >
         <source
           src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260206_044704_dd33cb15-c23f-4cfc-aa09-a0465d4dcb54.mp4"
@@ -28,65 +35,41 @@ export function Hero() {
         />
       </video>
 
-
+      {/* Musk #5: Interactive particle system */}
+      <HeroParticles />
 
       {/* Content Overlay */}
       <div className="relative z-10 container mx-auto px-4 pt-40 md:pt-56 pb-24">
-        {/* Subtitle */}
+        {/* Subtitle - Ive #5: Simplified opacity (60% secondary) */}
         <p
-          className={`text-sm md:text-base font-bold uppercase text-white/60 tracking-widest mb-6 transition-all duration-700 ${
+          className={`text-sm md:text-base font-medium uppercase text-white/60 tracking-[0.2em] mb-8 transition-all duration-500 ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
+          style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
         >
           AI-Powered Design Studio
         </p>
 
-        {/* Main Headline */}
-        <h1
-          className="text-6xl md:text-8xl lg:text-[120px] font-bold uppercase text-white"
-          style={{
-            lineHeight: 0.95,
-            letterSpacing: "-4px",
-          }}
-        >
-          <span
-            className={`block transition-all duration-700 delay-100 ${
-              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            NEW ERA
-          </span>
-          <span
-            className={`block transition-all duration-700 delay-200 ${
-              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            OF DESIGN
-          </span>
-          <span
-            className={`block transition-all duration-700 delay-300 ${
-              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            STARTS NOW
-          </span>
-        </h1>
+        {/* Main Headline - Musk #1: AI-powered personalized content */}
+        <HeroAIHeadline isLoaded={isLoaded} />
 
-        {/* Description */}
+        {/* Description - Ive #5: 60% opacity (secondary tier), more vertical space */}
         <p
-          className={`mt-8 text-lg md:text-xl text-white/70 max-w-xl leading-relaxed transition-all duration-700 delay-400 ${
+          className={`mt-10 text-lg md:text-xl text-white/60 max-w-xl leading-relaxed transition-all duration-500 delay-200 ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
+          style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
         >
           We blend artificial intelligence with human creativity to craft
           extraordinary brand experiences that push the boundaries of design.
         </p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons - Ive #3 & #4: Natural spring easing, refined buttons */}
         <div
-          className={`flex flex-col sm:flex-row items-start gap-4 mt-10 transition-all duration-700 delay-500 ${
+          className={`flex flex-col sm:flex-row items-start gap-5 mt-12 transition-all duration-500 delay-300 ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
+          style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
         >
           <Link href="/auth/sign-up">
             <ShapedButton variant="filled" size="md">
@@ -100,6 +83,15 @@ export function Hero() {
           </ShapedButton>
         </div>
 
+        {/* Musk #3: Real-time AI demo */}
+        <div
+          className={`mt-10 transition-all duration-500 delay-400 ${
+            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+        >
+          <HeroAIDemo />
+        </div>
       </div>
     </section>
   )

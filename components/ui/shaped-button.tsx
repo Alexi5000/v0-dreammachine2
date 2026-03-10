@@ -9,10 +9,11 @@ export interface ShapedButtonProps extends ButtonHTMLAttributes<HTMLButtonElemen
   fullWidth?: boolean
 }
 
+// Ive #3: Softer radii (14px) for premium tactile feel
 const sizeConfig = {
-  sm: { width: 140, height: 48, fontSize: 14, viewBox: "0 0 140 48", path: "M0 8C0 3.58172 3.58172 0 8 0H132C136.418 0 140 3.58172 140 8V40C140 44.4183 136.418 48 132 48H8C3.58172 48 0 44.4183 0 40V8Z" },
-  md: { width: 184, height: 65, fontSize: 20, viewBox: "0 0 184 65", path: "M0 8C0 3.58172 3.58172 0 8 0H176C180.418 0 184 3.58172 184 8V57C184 61.4183 180.418 65 176 65H8C3.58172 65 0 61.4183 0 57V8Z" },
-  lg: { width: 220, height: 65, fontSize: 18, viewBox: "0 0 220 65", path: "M0 8C0 3.58172 3.58172 0 8 0H212C216.418 0 220 3.58172 220 8V57C220 61.4183 216.418 65 212 65H8C3.58172 65 0 61.4183 0 57V8Z" },
+  sm: { width: 140, height: 48, fontSize: 14, viewBox: "0 0 140 48", path: "M0 14C0 6.268 6.268 0 14 0H126C133.732 0 140 6.268 140 14V34C140 41.732 133.732 48 126 48H14C6.268 48 0 41.732 0 34V14Z" },
+  md: { width: 184, height: 65, fontSize: 20, viewBox: "0 0 184 65", path: "M0 16C0 7.163 7.163 0 16 0H168C176.837 0 184 7.163 184 16V49C184 57.837 176.837 65 168 65H16C7.163 65 0 57.837 0 49V16Z" },
+  lg: { width: 220, height: 65, fontSize: 18, viewBox: "0 0 220 65", path: "M0 16C0 7.163 7.163 0 16 0H204C212.837 0 220 7.163 220 16V49C220 57.837 212.837 65 204 65H16C7.163 65 0 57.837 0 49V16Z" },
 }
 
 export const ShapedButton = forwardRef<HTMLButtonElement, ShapedButtonProps>(
@@ -23,13 +24,18 @@ export const ShapedButton = forwardRef<HTMLButtonElement, ShapedButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "relative transition-transform duration-200 ease-out hover:scale-105 active:scale-95 cursor-pointer group",
+          // Ive #3: Subtle shadow on hover, refined press state with squish effect
+          "relative cursor-pointer group",
+          "transition-all duration-300 ease-out",
+          "hover:scale-[1.03] hover:shadow-[0_8px_30px_rgba(255,255,255,0.15)]",
+          "active:scale-[0.97] active:shadow-none",
           fullWidth ? "w-full" : "",
           className
         )}
         style={{ 
           width: fullWidth ? "100%" : config.width, 
-          height: config.height 
+          height: config.height,
+          transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
         }}
         {...props}
       >
