@@ -1,8 +1,45 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useId } from "react"
 import { motion } from "motion/react"
 import { createClient } from "@/lib/supabase/client"
+
+function NotificationToggle({ 
+  label, 
+  description, 
+  defaultChecked 
+}: { 
+  label: string
+  description: string
+  defaultChecked: boolean 
+}) {
+  const [enabled, setEnabled] = useState(defaultChecked)
+  const id = useId()
+  
+  return (
+    <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+      <div>
+        <label htmlFor={id} className="font-medium text-white cursor-pointer">{label}</label>
+        <p className="text-sm text-white/50">{description}</p>
+      </div>
+      <button
+        id={id}
+        role="switch"
+        aria-checked={enabled}
+        onClick={() => setEnabled(!enabled)}
+        className={`relative w-11 h-6 rounded-full transition-colors ${
+          enabled ? "bg-[#fbbf24]" : "bg-white/20"
+        }`}
+      >
+        <span 
+          className={`absolute top-1 left-1 w-4 h-4 rounded-full bg-white transition-transform ${
+            enabled ? "translate-x-5" : "translate-x-0"
+          }`}
+        />
+      </button>
+    </div>
+  )
+}
 
 interface SettingsClientProps {
   userId: string
@@ -121,11 +158,43 @@ export function SettingsClient({ userId, userEmail, fullName, role }: SettingsCl
         </div>
       </motion.form>
 
+      {/* Notification Preferences */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="bg-gradient-to-br from-[#21346e]/40 via-[#1a2a5a]/40 to-[#151f45]/40 backdrop-blur-xl rounded-xl border border-white/10 p-6"
+      >
+        <h3 className="text-lg font-bold text-white mb-6">Notifications</h3>
+        <div className="space-y-4">
+          <NotificationToggle
+            label="Email Notifications"
+            description="Receive project updates via email"
+            defaultChecked={true}
+          />
+          <NotificationToggle
+            label="Project Alerts"
+            description="Get notified about project milestones"
+            defaultChecked={true}
+          />
+          <NotificationToggle
+            label="Team Messages"
+            description="Notifications for team communication"
+            defaultChecked={false}
+          />
+          <NotificationToggle
+            label="Marketing Updates"
+            description="News and product announcements"
+            defaultChecked={false}
+          />
+        </div>
+      </motion.div>
+
       {/* Security Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.25 }}
         className="bg-gradient-to-br from-[#21346e]/40 via-[#1a2a5a]/40 to-[#151f45]/40 backdrop-blur-xl rounded-xl border border-white/10 p-6"
       >
         <h3 className="text-lg font-bold text-white mb-6">Security</h3>
@@ -155,7 +224,7 @@ export function SettingsClient({ userId, userEmail, fullName, role }: SettingsCl
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        transition={{ delay: 0.35 }}
         className="bg-gradient-to-br from-[#21346e]/40 via-[#1a2a5a]/40 to-[#151f45]/40 backdrop-blur-xl rounded-xl border border-white/10 p-6"
       >
         <h3 className="text-lg font-bold text-white mb-6">Session & Security Info</h3>
@@ -183,7 +252,7 @@ export function SettingsClient({ userId, userEmail, fullName, role }: SettingsCl
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
+        transition={{ delay: 0.45 }}
         className="bg-gradient-to-br from-red-900/20 via-red-800/10 to-[#151f45]/40 backdrop-blur-xl rounded-xl border border-red-500/20 p-6"
       >
         <h3 className="text-lg font-bold text-red-400 mb-4">Danger Zone</h3>

@@ -34,7 +34,10 @@ export function DashboardNav({ userName, userEmail, isAdmin }: DashboardNavProps
   }
 
   return (
-    <aside className="fixed left-0 top-0 h-full w-64 bg-gradient-to-b from-[#21346e]/50 via-[#1a2a5a]/50 to-[#151f45]/50 backdrop-blur-xl border-r border-white/10 flex flex-col z-50">
+    <aside 
+      className="fixed left-0 top-0 h-full w-64 bg-gradient-to-b from-[#21346e]/50 via-[#1a2a5a]/50 to-[#151f45]/50 backdrop-blur-xl border-r border-white/10 flex flex-col z-50"
+      aria-label="Dashboard navigation"
+    >
       {/* Logo */}
       <div className="p-6 border-b border-white/10">
         <Link href="/" className="text-2xl font-bold text-white tracking-tight">
@@ -43,7 +46,7 @@ export function DashboardNav({ userName, userEmail, isAdmin }: DashboardNavProps
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 p-4 space-y-1" role="navigation" aria-label="Main menu">
         <p className="text-xs font-bold uppercase text-white/30 tracking-widest px-3 mb-3">
           Main Menu
         </p>
@@ -53,6 +56,7 @@ export function DashboardNav({ userName, userEmail, isAdmin }: DashboardNavProps
             <Link
               key={item.name}
               href={item.href}
+              aria-current={isActive ? "page" : undefined}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group ${
                 isActive
                   ? "bg-[#fbbf24]/20 text-[#fbbf24]"
@@ -115,6 +119,7 @@ export function DashboardNav({ userName, userEmail, isAdmin }: DashboardNavProps
         </div>
         <button
           onClick={handleSignOut}
+          aria-label="Sign out of your account"
           className="mt-3 w-full flex items-center justify-center gap-2 px-3 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
         >
           <LogoutIcon className="w-4 h-4" />
