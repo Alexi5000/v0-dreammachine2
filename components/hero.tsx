@@ -10,61 +10,32 @@ import { HeroAIDemo } from "@/components/hero-ai-demo"
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [videoLoaded, setVideoLoaded] = useState(false)
 
   useEffect(() => {
     setIsLoaded(true)
   }, [])
 
   return (
-    <section className="relative min-h-screen bg-[#0a0a0a] overflow-hidden">
-      {/* Animated gradient background */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          background: `
-            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(33, 52, 110, 0.5) 0%, transparent 50%),
-            radial-gradient(ellipse 60% 40% at 80% 50%, rgba(33, 52, 110, 0.3) 0%, transparent 40%),
-            radial-gradient(ellipse 50% 30% at 20% 80%, rgba(33, 52, 110, 0.25) 0%, transparent 35%),
-            linear-gradient(to bottom, #0f1629 0%, #0a0a0a 100%)
-          `,
-        }}
-      />
-      
-      {/* Animated glow orbs */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div 
-          className="absolute w-[600px] h-[600px] rounded-full opacity-20 animate-pulse"
-          style={{
-            background: "radial-gradient(circle, rgba(33, 52, 110, 0.8) 0%, transparent 70%)",
-            top: "-10%",
-            left: "10%",
-            filter: "blur(60px)",
-            animation: "float 8s ease-in-out infinite",
-          }}
+    <section className="relative min-h-screen bg-[#21346e] overflow-hidden">
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        onLoadedData={() => setVideoLoaded(true)}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+          videoLoaded ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <source
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260206_044704_dd33cb15-c23f-4cfc-aa09-a0465d4dcb54.mp4"
+          type="video/mp4"
         />
-        <div 
-          className="absolute w-[500px] h-[500px] rounded-full opacity-15"
-          style={{
-            background: "radial-gradient(circle, rgba(251, 191, 36, 0.4) 0%, transparent 70%)",
-            bottom: "10%",
-            right: "-5%",
-            filter: "blur(80px)",
-            animation: "float 10s ease-in-out infinite reverse",
-          }}
-        />
-        <div 
-          className="absolute w-[400px] h-[400px] rounded-full opacity-10"
-          style={{
-            background: "radial-gradient(circle, rgba(33, 52, 110, 0.6) 0%, transparent 70%)",
-            top: "40%",
-            left: "-10%",
-            filter: "blur(50px)",
-            animation: "float 12s ease-in-out infinite 2s",
-          }}
-        />
-      </div>
+      </video>
 
-      {/* Interactive particle system */}
+      {/* Interactive particle system overlay */}
       <HeroParticles />
 
       {/* Content Overlay */}
