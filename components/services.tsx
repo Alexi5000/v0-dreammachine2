@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState, useCallback } from "react"
+import { motion, useInView, AnimatePresence } from "motion/react"
 import { SectionHeader } from "@/components/ui/section-header"
 import { ShapedButton } from "@/components/ui/shaped-button"
 import { ArrowUpRightIcon } from "@/components/icons"
@@ -17,6 +18,7 @@ interface ServiceData {
   icon: React.ReactNode
   features: Feature[]
   isLoading: boolean
+  activeFeature: number
 }
 
 const initialServices: ServiceData[] = [
@@ -46,6 +48,7 @@ const initialServices: ServiceData[] = [
     ),
     features: [],
     isLoading: true,
+    activeFeature: 0,
   },
   {
     title: "Generative Design",
@@ -69,6 +72,7 @@ const initialServices: ServiceData[] = [
     ),
     features: [],
     isLoading: true,
+    activeFeature: 0,
   },
   {
     title: "Motion & Animation",
@@ -93,6 +97,7 @@ const initialServices: ServiceData[] = [
     ),
     features: [],
     isLoading: true,
+    activeFeature: 0,
   },
   {
     title: "Web Development",
@@ -123,15 +128,33 @@ const initialServices: ServiceData[] = [
     ),
     features: [],
     isLoading: true,
+    activeFeature: 0,
   },
 ]
 
 export function Services() {
   const [visibleCards, setVisibleCards] = useState<number[]>([])
   const [services, setServices] = useState<ServiceData[]>(initialServices)
-  const [expandedCard, setExpandedCard] = useState<number | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const hasLoadedRef = useRef<Set<number>>(new Set())
+
+  // Auto-rotate features for each service card
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setServices((prev) =>
+        prev.map((service) => {
+          if (service.features.length > 0) {
+            return {
+              ...service,
+              activeFeature: (service.activeFeature + 1) % service.features.length,
+            }
+          }
+          return service
+        })
+      )
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
 
   const loadFeatures = useCallback(async (index: number) => {
     if (hasLoadedRef.current.has(index)) return
@@ -197,24 +220,50 @@ export function Services() {
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={service.title}
               data-index={index}
-              className={`service-card group relative rounded-lg overflow-hidden transition-all duration-700 ${
-                visibleCards.includes(index)
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-8"
-              } ${expandedCard === index ? "md:col-span-2" : ""}`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{
+                duration: 0.7,
+                delay: index * 0.1,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="service-card group relative rounded-2xl overflow-hidden"
             >
-              {/* Card with hero-style background */}
-              <div className="relative bg-[#21346e] min-h-[400px] p-8 md:p-10">
-                {/* Animated gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#21346e] via-[#2a4080] to-[#1a2850] opacity-100" />
+              {/* Card with Apple-inspired glass background */}
+              <div className="relative bg-gradient-to-br from-[#1a1f35] via-[#21346e] to-[#1a2850] min-h-[480px] p-8 md:p-10 rounded-2xl">
+                {/* Noise texture overlay for depth */}
+                <div className="absolute inset-0 opacity-[0.015] rounded-2xl" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")" }} />
                 
-                {/* Subtle animated glow */}
-                <div className="absolute -top-20 -right-20 w-60 h-60 bg-white/5 rounded-full blur-3xl animate-pulse" />
-                <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-white/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+                {/* Animated gradient orbs */}
+                <motion.div
+                  className="absolute -top-32 -right-32 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl"
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.1, 0.15, 0.1],
+                  }}
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                <motion.div
+                  className="absolute -bottom-32 -left-32 w-80 h-80 bg-indigo-400/10 rounded-full blur-3xl"
+                  animate={{
+                    scale: [1, 1.15, 1],
+                    opacity: [0.1, 0.2, 0.1],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1,
+                  }}
+                />
 
                 {/* Content */}
                 <div className="relative z-10">
@@ -231,99 +280,178 @@ export function Services() {
                     {service.description}
                   </p>
 
-                  {/* Feature Cards Grid - Hero Style */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6">
+                  {/* Single Feature Card - Apple-Inspired Design */}
+                  <div className="mt-8">
                     {service.isLoading ? (
-                      // Loading skeleton with hero card shape
-                      Array.from({ length: 4 }).map((_, i) => (
-                        <div key={i} className="relative h-[140px]">
-                          <svg
-                            className="absolute inset-0 w-full h-full"
-                            viewBox="0 0 280 140"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            preserveAspectRatio="none"
-                          >
-                            <path
-                              d="M0 12C0 5.37258 5.37258 0 12 0H268C274.627 0 280 5.37258 280 12V128C280 134.627 274.627 140 268 140H12C5.37258 140 0 134.627 0 128V12Z"
-                              fill="white"
-                              fillOpacity="0.1"
+                      // Loading skeleton
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="relative overflow-hidden rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 p-8"
+                      >
+                        <div className="flex items-center gap-3 mb-6">
+                          {[0, 1, 2, 3].map((i) => (
+                            <div
+                              key={i}
+                              className="h-1 flex-1 rounded-full bg-white/10 animate-pulse"
+                              style={{ animationDelay: `${i * 150}ms` }}
                             />
-                          </svg>
-                          <div className="absolute inset-0 p-5 animate-pulse">
-                            <div className="h-4 bg-white/20 rounded w-1/4 mb-3" />
-                            <div className="h-5 bg-white/15 rounded w-2/3 mb-3" />
-                            <div className="h-3 bg-white/10 rounded w-full mb-2" />
-                            <div className="h-3 bg-white/10 rounded w-3/4" />
-                          </div>
+                          ))}
                         </div>
-                      ))
-                    ) : (
-                      service.features.map((feature, featureIndex) => (
-                        <div
-                          key={featureIndex}
-                          className="relative h-[140px] transition-transform duration-300 ease-out hover:scale-[1.03] active:scale-[0.98] cursor-pointer group/feature"
-                          style={{ 
-                            animationDelay: `${featureIndex * 100}ms`,
+                        <div className="space-y-4">
+                          <div className="h-6 bg-white/10 rounded-lg w-1/3 animate-pulse" />
+                          <div className="h-8 bg-white/10 rounded-lg w-2/3 animate-pulse" />
+                          <div className="h-4 bg-white/5 rounded-lg w-full animate-pulse" />
+                          <div className="h-4 bg-white/5 rounded-lg w-4/5 animate-pulse" />
+                        </div>
+                      </motion.div>
+                    ) : service.features.length > 0 ? (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10 group/card cursor-pointer"
+                        onClick={() => {
+                          setServices((prev) =>
+                            prev.map((s, i) =>
+                              i === index
+                                ? { ...s, activeFeature: (s.activeFeature + 1) % s.features.length }
+                                : s
+                            )
+                          )
+                        }}
+                      >
+                        {/* Animated gradient orb */}
+                        <motion.div
+                          className="absolute -top-32 -right-32 w-64 h-64 bg-white/[0.03] rounded-full blur-3xl"
+                          animate={{
+                            scale: [1, 1.2, 1],
+                            opacity: [0.3, 0.5, 0.3],
                           }}
-                        >
-                          {/* SVG Card Shape - Matching Hero Button Style */}
-                          <svg
-                            className="absolute inset-0 w-full h-full drop-shadow-lg transition-all duration-300 group-hover/feature:drop-shadow-2xl"
-                            viewBox="0 0 280 140"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            preserveAspectRatio="none"
-                          >
-                            <path
-                              d="M0 12C0 5.37258 5.37258 0 12 0H268C274.627 0 280 5.37258 280 12V128C280 134.627 274.627 140 268 140H12C5.37258 140 0 134.627 0 128V12Z"
-                              fill="white"
-                              className="transition-all duration-300"
-                            />
-                          </svg>
-                          
-                          {/* Card Content */}
-                          <div className="absolute inset-0 p-5 flex flex-col justify-between">
-                            {/* Top Row - Highlight Badge */}
-                            <div className="flex items-center justify-between">
-                              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase text-[#21346e] tracking-wider">
-                                <span className="w-1.5 h-1.5 bg-[#21346e] rounded-full" />
-                                {feature.highlight}
-                              </span>
-                              {/* Arrow Icon */}
-                              <ArrowUpRightIcon className="w-4 h-4 text-[#21346e]/40 group-hover/feature:text-[#21346e] group-hover/feature:translate-x-0.5 group-hover/feature:-translate-y-0.5 transition-all duration-300" />
-                            </div>
-                            
-                            {/* Main Content */}
-                            <div>
-                              {/* Feature title */}
-                              <h4 className="text-[17px] font-bold text-[#161a20] mb-1.5 leading-tight uppercase tracking-tight">
-                                {feature.title}
-                              </h4>
-                              
-                              {/* Feature description */}
-                              <p className="text-[13px] text-[#161a20]/60 leading-relaxed line-clamp-2">
-                                {feature.description}
-                              </p>
-                            </div>
-                          </div>
+                          transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                        
+                        {/* Progress indicators */}
+                        <div className="flex items-center gap-2 px-8 pt-6">
+                          {service.features.map((_, featureIndex) => (
+                            <motion.button
+                              key={featureIndex}
+                              className="relative h-1 flex-1 rounded-full overflow-hidden bg-white/10"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                setServices((prev) =>
+                                  prev.map((s, i) =>
+                                    i === index ? { ...s, activeFeature: featureIndex } : s
+                                  )
+                                )
+                              }}
+                            >
+                              {service.activeFeature === featureIndex && (
+                                <motion.div
+                                  className="absolute inset-0 bg-white rounded-full"
+                                  layoutId={`progress-${index}`}
+                                  transition={{ duration: 0.3, ease: "easeOut" }}
+                                />
+                              )}
+                            </motion.button>
+                          ))}
                         </div>
-                      ))
-                    )}
+
+                        {/* Card content */}
+                        <div className="relative p-8 pt-6 min-h-[200px]">
+                          <AnimatePresence mode="wait">
+                            <motion.div
+                              key={service.activeFeature}
+                              initial={{ opacity: 0, x: 20, filter: "blur(4px)" }}
+                              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                              exit={{ opacity: 0, x: -20, filter: "blur(4px)" }}
+                              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            >
+                              {/* Highlight badge */}
+                              <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 }}
+                                className="inline-flex items-center gap-2 mb-4"
+                              >
+                                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10">
+                                  <span className="text-white font-bold text-sm">
+                                    {service.activeFeature + 1}
+                                  </span>
+                                </span>
+                                <span className="text-xs font-bold uppercase text-white/50 tracking-widest">
+                                  {service.features[service.activeFeature]?.highlight}
+                                </span>
+                              </motion.div>
+
+                              {/* Title */}
+                              <motion.h4
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.15 }}
+                                className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight leading-tight"
+                              >
+                                {service.features[service.activeFeature]?.title}
+                              </motion.h4>
+
+                              {/* Description */}
+                              <motion.p
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2 }}
+                                className="text-white/60 leading-relaxed text-base max-w-lg"
+                              >
+                                {service.features[service.activeFeature]?.description}
+                              </motion.p>
+                            </motion.div>
+                          </AnimatePresence>
+
+                          {/* Arrow indicator */}
+                          <motion.div
+                            className="absolute bottom-8 right-8"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 group-hover/card:bg-white/20 transition-colors duration-300">
+                              <ArrowUpRightIcon className="w-5 h-5 text-white group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 transition-transform duration-300" />
+                            </div>
+                          </motion.div>
+                        </div>
+
+                        {/* Bottom gradient line */}
+                        <motion.div
+                          className="absolute bottom-0 left-0 right-0 h-px"
+                          style={{
+                            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
+                          }}
+                          animate={{
+                            opacity: [0.3, 0.6, 0.3],
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                      </motion.div>
+                    ) : null}
                   </div>
 
                   {/* CTA Button matching hero style */}
                   <ShapedButton
                     variant="filled"
                     size="sm"
-                    onClick={() => setExpandedCard(expandedCard === index ? null : index)}
                     className="mt-8"
                   >
                     LEARN MORE
                   </ShapedButton>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
