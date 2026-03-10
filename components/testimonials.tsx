@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { motion } from "motion/react"
 import { QuoteIcon } from "@/components/icons"
 import { useInViewAnimation } from "@/hooks/use-in-view-animation"
 
@@ -35,7 +36,41 @@ const logos = [
   "Velocity",
   "Apex",
   "Prism",
+  "Horizon",
+  "Zenith",
 ]
+
+// Marquee component for smooth infinite scrolling
+function Marquee({
+  children,
+  speed = 30,
+}: {
+  children: React.ReactNode
+  speed?: number
+}) {
+  return (
+    <div className="overflow-hidden">
+      <motion.div
+        className="flex"
+        animate={{
+          x: ["0%", "-50%"],
+        }}
+        transition={{
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: speed,
+            ease: "linear",
+          },
+        }}
+      >
+        {/* Render content twice for seamless loop */}
+        <div className="flex shrink-0">{children}</div>
+        <div className="flex shrink-0">{children}</div>
+      </motion.div>
+    </div>
+  )
+}
 
 export function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -55,24 +90,34 @@ export function Testimonials() {
       className="relative py-24 md:py-32 bg-[#0a0a0a]"
     >
       <div className="container mx-auto px-4">
-        {/* Logos */}
+        {/* Logos - Infinite Marquee */}
         <div
-          className={`flex flex-wrap justify-center items-center gap-8 md:gap-16 mb-24 transition-all duration-700 ${
+          className={`mb-24 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <span className="w-full text-center text-sm font-bold uppercase text-white/30 tracking-widest mb-4">
+          <span className="block text-center text-sm font-bold uppercase text-white/30 tracking-widest mb-8">
             Trusted by industry leaders
           </span>
-          {logos.map((logo, index) => (
-            <span
-              key={logo}
-              className="text-2xl md:text-3xl font-bold uppercase text-white/20 hover:text-white/40 transition-colors duration-300"
-              style={{ transitionDelay: `${index * 50}ms` }}
-            >
-              {logo}
-            </span>
-          ))}
+          
+          {/* Brand Marquee Scroller */}
+          <div className="relative">
+            {/* Left fade gradient */}
+            <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
+            {/* Right fade gradient */}
+            <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
+            
+            <Marquee speed={35}>
+              {logos.map((logo, index) => (
+                <span
+                  key={`${logo}-${index}`}
+                  className="text-2xl md:text-4xl font-bold uppercase text-white/20 hover:text-white/40 transition-colors duration-300 mx-8 md:mx-16 cursor-default select-none whitespace-nowrap"
+                >
+                  {logo}
+                </span>
+              ))}
+            </Marquee>
+          </div>
         </div>
 
         {/* Testimonial */}

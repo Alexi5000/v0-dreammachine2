@@ -73,11 +73,11 @@ export function Pricing() {
         />
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto items-stretch">
           {plans.map((plan, index) => (
             <div
               key={plan.name}
-              className={`relative p-8 md:p-10 rounded-lg border transition-all duration-700 ${
+              className={`relative p-8 md:p-10 rounded-lg border transition-all duration-700 flex flex-col ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"
@@ -115,8 +115,8 @@ export function Pricing() {
               {/* Description */}
               <p className="text-white/60 mb-8">{plan.description}</p>
 
-              {/* Features */}
-              <ul className="space-y-4 mb-10">
+              {/* Features - grows to fill available space */}
+              <ul className="space-y-4 flex-1">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center mt-0.5">
@@ -127,14 +127,16 @@ export function Pricing() {
                 ))}
               </ul>
 
-              {/* CTA Button */}
-              <ShapedButton
-                variant={plan.popular ? "filled" : "outline"}
-                size="sm"
-                fullWidth
-              >
-                {plan.price === "Custom" ? "CONTACT US" : "GET STARTED"}
-              </ShapedButton>
+              {/* CTA Button - always at bottom */}
+              <div className="mt-10 pt-6 border-t border-white/10">
+                <ShapedButton
+                  variant={plan.popular ? "filled" : "outline"}
+                  size="sm"
+                  fullWidth
+                >
+                  {plan.price === "Custom" ? "CONTACT US" : "GET STARTED"}
+                </ShapedButton>
+              </div>
             </div>
           ))}
         </div>

@@ -1,5 +1,6 @@
 import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
+import { BrandScroller } from "@/components/brand-scroller"
 import { Services } from "@/components/services"
 import { Process } from "@/components/process"
 import { Pricing } from "@/components/pricing"
@@ -13,6 +14,7 @@ export default function Home() {
     <main className="bg-[#0a0a0a]">
       <Header />
       <Hero />
+      <BrandScroller />
       <Services />
       <Process />
       <Work />
