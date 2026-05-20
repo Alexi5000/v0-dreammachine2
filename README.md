@@ -1,85 +1,103 @@
 <div align="center">
+  <br />
+  <a href="https://nexus-ai.techtideai.io">
+    <img src="docs/banner.svg" alt="Nexus AI — AI-Native Design Studio" width="100%" />
+  </a>
+  <br /><br />
 
-<a href="https://nexus-ai.techtideai.io">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="public/icon.svg">
-    <img alt="Nexus AI logo" src="public/icon.svg" width="96" height="96">
-  </picture>
-</a>
+  <p>
+    <strong>An open-source, AI-native design studio</strong> — the marketing site, client dashboard,<br/>
+    and AI workflow you'd want behind your own studio's front door.
+  </p>
 
-# Nexus AI
+  <p>
+    <a href="https://github.com/Alexi5000/v0-dreammachine2/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Alexi5000/v0-dreammachine2/ci.yml?branch=main&label=CI&style=flat-square&logo=github" alt="CI status" /></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-22c55e?style=flat-square" alt="License: MIT" /></a>
+    <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-16-000?style=flat-square&logo=next.js" alt="Next.js 16" /></a>
+    <a href="https://react.dev"><img src="https://img.shields.io/badge/React-19-149eca?style=flat-square&logo=react&logoColor=fff" alt="React 19" /></a>
+    <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind-v4-38bdf8?style=flat-square&logo=tailwindcss&logoColor=fff" alt="Tailwind v4" /></a>
+    <a href="https://sdk.vercel.ai"><img src="https://img.shields.io/badge/AI%20SDK-v6-FF6B6B?style=flat-square" alt="Vercel AI SDK" /></a>
+    <a href="https://supabase.com"><img src="https://img.shields.io/badge/Supabase-Auth-3ECF8E?style=flat-square&logo=supabase&logoColor=fff" alt="Supabase" /></a>
+    <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-fbbf24?style=flat-square" alt="PRs welcome" /></a>
+  </p>
 
-### AI-Native Design Studio
-
-**Brand systems · Generative visuals · Motion · Production-grade web — engineered by AI, finished by humans.**
-
-[![Build](https://img.shields.io/github/actions/workflow/status/Alexi5000/v0-dreammachine2/ci.yml?branch=main&label=build&logo=github&style=flat-square)](https://github.com/Alexi5000/v0-dreammachine2/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-22c55e?style=flat-square)](LICENSE)
-[![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org)
-[![React 19](https://img.shields.io/badge/React-19-149eca?style=flat-square&logo=react&logoColor=white)](https://react.dev)
-[![Tailwind v4](https://img.shields.io/badge/Tailwind-v4-38bdf8?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![Vercel AI SDK](https://img.shields.io/badge/AI%20SDK-v6-FF6B6B?style=flat-square)](https://sdk.vercel.ai)
-[![Supabase](https://img.shields.io/badge/Supabase-Auth-3ECF8E?style=flat-square&logo=supabase&logoColor=white)](https://supabase.com)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-fbbf24?style=flat-square)](CONTRIBUTING.md)
-[![Open in Codespaces](https://img.shields.io/badge/Open%20in-Codespaces-181717?style=flat-square&logo=github)](https://codespaces.new/Alexi5000/v0-dreammachine2)
-
-[**Live demo**](https://nexus-ai.techtideai.io) · [**Documentation**](#-getting-started) · [**Roadmap**](#-roadmap) · [**Contributing**](CONTRIBUTING.md) · [**Report a bug**](https://github.com/Alexi5000/v0-dreammachine2/issues/new?template=bug_report.yml)
-
+  <p>
+    <a href="https://nexus-ai.techtideai.io"><strong>Live&nbsp;demo</strong></a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+    <a href="#getting-started"><strong>Getting&nbsp;started</strong></a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+    <a href="#architecture"><strong>Architecture</strong></a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+    <a href="CONTRIBUTING.md"><strong>Contributing</strong></a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+    <a href="https://github.com/Alexi5000/v0-dreammachine2/issues/new?template=bug_report.yml"><strong>Report&nbsp;a&nbsp;bug</strong></a>
+  </p>
 </div>
 
----
-
-## ✨ Why Nexus AI
-
-> **The studio is the product.** Nexus AI is the open-source reference implementation of a modern, AI-native creative studio — the kind of marketing site, client portal, and AI workflow you'd want behind your own studio's front door.
-
-It's built so that whether you're a freelancer, agency, or product team, you can fork it, swap the brand, plug in your AI providers, and ship a category-leading site in an afternoon.
-
-| | |
-| --- | --- |
-| 🧠 **AI-native** | Streaming chat, generative feature pages, real-time content via the Vercel AI SDK v6 — provider-agnostic (Anthropic, OpenAI, Google, or AI Gateway). |
-| 🎨 **Apple-tier motion** | Spring curves and easings calibrated from Material 3 / Apple HIG. Every page transition feels intentional. |
-| 🔐 **Production auth** | Supabase Auth out of the box — SSR-safe, RLS-friendly, with middleware-level session refresh. |
-| 🧱 **Composable** | shadcn/ui + Radix primitives + Tailwind v4 — every component is yours to fork, every token is a CSS variable. |
-| ⚡ **Fast by default** | Streaming server components, font preloading, edge OG generation, predictive prefetch. |
-| ♿ **Accessible** | Skip-nav, focus-visible rings, semantic landmarks, reduced-motion support, keyboard-first navigation. |
-| 📈 **Observable** | Vercel Analytics + Speed Insights wired in. Bring your own PostHog / Plausible. |
-| 🧪 **Type-safe** | TypeScript strict, Zod-validated env, React 19 + Next 16. |
+<br />
 
 ---
 
-## 🖼 Preview
+## What is Nexus AI?
 
-> Screenshots are checked into `docs/screenshots/`. Run `pnpm dev` to see the live experience.
+Nexus AI is an open-source reference implementation of a modern creative studio platform. It ships a production-grade marketing site, an authenticated client dashboard, and a streaming AI chat — all in one Next.js 16 application.
 
-| Marketing | Dashboard | AI chat |
-| :---: | :---: | :---: |
-| ![Marketing](docs/screenshots/marketing.svg) | ![Dashboard](docs/screenshots/dashboard.svg) | ![Chat](docs/screenshots/chat.svg) |
+Fork it, swap the brand tokens, connect your AI providers, and you have a category-leading studio site running in an afternoon.
+
+**Key capabilities:**
+
+- **AI-native workflows** — Streaming chat and generative feature pages via the Vercel AI SDK v6. Provider-agnostic: works with Anthropic, OpenAI, Google, or any AI Gateway.
+- **Production auth** — Supabase Auth with SSR middleware session refresh, RLS-ready, magic link and email/password flows.
+- **Apple-tier motion** — Spring curves and emphasized easings calibrated from Material 3 and Apple HIG guidelines. Every interaction is intentional.
+- **Composable design system** — 65+ shadcn/ui + Radix primitives. Every component is yours to fork, every token is a CSS variable.
+- **Fast by default** — Streaming server components, edge OG generation, font preloading, `optimizePackageImports`, security headers.
+- **Accessible** — Skip navigation, focus-visible rings, semantic landmarks, reduced-motion support, keyboard-first navigation.
+- **Observable** — Vercel Analytics + Speed Insights wired in. Bring your own PostHog or Plausible.
 
 ---
 
-## 🧬 Architecture
+## Preview
+
+> Run `pnpm dev` to see these live, or visit [nexus-ai.techtideai.io](https://nexus-ai.techtideai.io).
+
+<table>
+  <tr>
+    <td align="center"><strong>Marketing site</strong></td>
+    <td align="center"><strong>Client dashboard</strong></td>
+    <td align="center"><strong>AI chat</strong></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/marketing.svg" alt="Marketing site wireframe" width="260" /></td>
+    <td><img src="docs/screenshots/dashboard.svg" alt="Dashboard wireframe" width="260" /></td>
+    <td><img src="docs/screenshots/chat.svg" alt="AI chat wireframe" width="260" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Hero, services, work, pricing, testimonials</sub></td>
+    <td align="center"><sub>Projects, analytics, settings, admin</sub></td>
+    <td align="center"><sub>Streaming AI via Vercel AI SDK</sub></td>
+  </tr>
+</table>
+
+---
+
+## Architecture
 
 ```mermaid
 flowchart LR
-    subgraph Client["🌐 Browser"]
-        UI["Next.js 16 App Router<br/>React 19 · Tailwind v4"]
+    subgraph Client["Browser"]
+        UI["Next.js 16 App Router\nReact 19 · Tailwind v4"]
     end
 
-    subgraph Edge["⚡ Vercel Edge"]
-        MW["middleware.ts<br/>Supabase session refresh"]
-        OG["/opengraph-image<br/>Edge ImageResponse"]
+    subgraph Edge["Vercel Edge"]
+        MW["middleware.ts\nSupabase session refresh"]
+        OG["/opengraph-image\nEdge ImageResponse"]
     end
 
-    subgraph Server["🔧 Server"]
-        SC["Server Components<br/>Streaming UI"]
-        API["/api/* Routes<br/>AI streaming"]
+    subgraph Server["Server"]
+        SC["Server Components\nStreaming UI"]
+        API["/api/*\nAI streaming · health · contact"]
     end
 
-    subgraph Services["🧠 External"]
-        Supabase[(Supabase<br/>Auth · DB · RLS)]
-        AI["Vercel AI SDK v6<br/>Anthropic · OpenAI · Google"]
-        Analytics["Vercel Analytics<br/>Speed Insights"]
+    subgraph Services["External"]
+        Supabase[(Supabase\nAuth · DB · RLS)]
+        AI["Vercel AI SDK v6\nAnthropic · OpenAI · Google"]
+        Analytics["Vercel Analytics\nSpeed Insights"]
     end
 
     UI <--> MW
@@ -92,156 +110,175 @@ flowchart LR
     UI -.-> Analytics
 ```
 
-**Folder map**
+### Project structure
 
 ```
 .
-├── app/                  # Next.js App Router
-│   ├── (marketing)       # Public landing (hero, services, pricing, work, CTA)
-│   ├── auth/             # Supabase login / sign-up / sign-up-success / error
-│   ├── dashboard/        # Authenticated client dashboard (admin, analytics, chat, projects)
-│   ├── api/              # Edge AI streaming endpoints
-│   ├── opengraph-image   # Edge OG generation (1200×630)
-│   ├── sitemap.ts        # Dynamic sitemap
-│   ├── robots.ts         # Dynamic robots policy
-│   └── manifest.ts       # PWA web manifest
+├── app/
+│   ├── page.tsx              # Landing page (hero, services, process, work, pricing, CTA)
+│   ├── auth/                 # Login, sign-up, sign-up-success, error
+│   ├── dashboard/            # Authenticated client area
+│   │   ├── page.tsx          # Overview with stats and activity
+│   │   ├── projects/         # Project list + new project form
+│   │   ├── chat/             # Streaming AI design assistant
+│   │   ├── analytics/        # Usage analytics
+│   │   ├── settings/         # Account settings
+│   │   └── admin/            # System admin + user management
+│   ├── api/
+│   │   ├── health/           # Health check endpoint
+│   │   ├── contact/          # Contact form handler
+│   │   └── newsletter/       # Newsletter subscription
+│   ├── opengraph-image.tsx   # Edge-generated OG card (1200x630)
+│   ├── twitter-image.tsx     # Twitter card (reuses OG)
+│   ├── sitemap.ts            # Dynamic XML sitemap
+│   ├── robots.ts             # Dynamic robots.txt
+│   └── manifest.ts           # PWA web manifest
 ├── components/
-│   ├── ui/               # shadcn/ui primitives (button, card, input, …)
-│   ├── primitives/       # Section-level building blocks
-│   ├── dashboard/        # Dashboard shell + nav
-│   └── *.tsx             # Marketing sections (hero, services, work, …)
+│   ├── ui/                   # 65+ shadcn/ui primitives
+│   ├── site/                 # Marketing sections (header, hero, services, …)
+│   ├── primitives/           # Section building blocks (kinetic-headline, animated-mesh, …)
+│   └── dashboard/            # Dashboard shell, nav, overview
 ├── lib/
-│   ├── site.ts           # Single source of truth for brand strings
-│   ├── env.ts            # Zod-validated environment
-│   ├── motion.ts         # Spring/easing presets
-│   └── supabase/         # Browser + server + middleware clients
-├── hooks/                # use-in-view-animation, use-mobile, use-toast
-├── scripts/              # SQL migrations for Supabase
-└── public/               # Static assets, icons
+│   ├── site.ts               # Brand strings — single source of truth
+│   ├── env.ts                # Zod-validated environment config
+│   ├── motion.ts             # Spring/easing presets (Apple-tier)
+│   └── supabase/             # Browser, server, and middleware clients
+├── hooks/                    # useInView, useMobile, useScrollProgress, …
+├── types/                    # Web Speech API declarations
+├── supabase/                 # Migrations and Supabase config
+├── tests-e2e/                # Playwright smoke tests
+└── public/                   # Static assets, favicons, SVG icon
 ```
 
 ---
 
-## 🚀 Getting started
+## Getting started
 
-> **Requirements:** Node.js ≥ 20, pnpm ≥ 9. (npm and bun work too — use what you love.)
+**Requirements:** Node.js 20+, pnpm 9+ (npm and Bun work too).
 
 ```bash
-# 1. Clone
+# Clone
 git clone https://github.com/Alexi5000/v0-dreammachine2.git nexus-ai
 cd nexus-ai
 
-# 2. Install
+# Install dependencies
 pnpm install
 
-# 3. Configure environment
+# Set up environment (marketing site works without any keys)
 cp .env.example .env.local
-#   The marketing site renders without any env vars.
-#   Add Supabase + AI keys to unlock auth + chat.
 
-# 4. Run the dev server
+# Start dev server
 pnpm dev
 ```
 
-Open <http://localhost:3000> — you're live.
+Open [localhost:3000](http://localhost:3000). The full marketing site renders without Supabase or AI keys. Add them to unlock auth and chat.
 
-### One-click deploy
+### Deploy to Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Alexi5000/v0-dreammachine2&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY&envDescription=Supabase%20project%20keys%20%E2%80%94%20see%20.env.example&envLink=https://github.com/Alexi5000/v0-dreammachine2/blob/main/.env.example&project-name=nexus-ai&repository-name=nexus-ai)
 
 ### Environment variables
 
-All keys are documented in [`.env.example`](.env.example). Summary:
+All keys are documented in [`.env.example`](.env.example). Here's the summary:
 
-| Key | Required | Notes |
-| --- | :---: | --- |
-| `NEXT_PUBLIC_SITE_URL` | ✅ | Canonical origin used by OG, sitemap, JSON-LD. |
-| `NEXT_PUBLIC_SUPABASE_URL` | for auth | Supabase project URL. |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | for auth | Supabase anon key. |
-| `SUPABASE_SERVICE_ROLE_KEY` | for admin | Server-only, never expose to the client. |
-| `AI_GATEWAY_API_KEY` | for chat | Auto-injected on Vercel. Otherwise add a direct provider key below. |
-| `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` / `GOOGLE_GENERATIVE_AI_API_KEY` | optional | Fallback when AI Gateway isn't available. |
-| `RESEND_API_KEY`, `CONTACT_TO_EMAIL` | optional | Wire up the contact form. |
-| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | optional | Rate limiting for AI endpoints. |
+| Variable | Required | Purpose |
+| :--- | :---: | :--- |
+| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical URL for OG images, sitemap, JSON-LD |
+| `NEXT_PUBLIC_SUPABASE_URL` | For auth | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | For auth | Supabase anonymous key |
+| `SUPABASE_SERVICE_ROLE_KEY` | For admin | Server-only — never expose client-side |
+| `AI_GATEWAY_API_KEY` | For chat | Auto-injected on Vercel AI Gateway |
+| `ANTHROPIC_API_KEY` | Optional | Direct Anthropic provider key |
+| `OPENAI_API_KEY` | Optional | Direct OpenAI provider key |
+| `RESEND_API_KEY` | Optional | Contact form email delivery |
 
-Env is validated at startup with Zod ([`lib/env.ts`](lib/env.ts)) and exposes a `features` flag object so feature gating is one import away.
-
----
-
-## 🛠 Scripts
-
-```bash
-pnpm dev          # Start the dev server on http://localhost:3000
-pnpm build        # Build production bundle
-pnpm start        # Serve the production build
-pnpm lint         # ESLint
-pnpm typecheck    # TypeScript --noEmit
-pnpm format       # Prettier write
-pnpm format:check # Prettier check (used by CI)
-```
+Environment validation runs at startup via Zod ([`lib/env.ts`](lib/env.ts)) and exposes a `features` flag object for one-import feature gating.
 
 ---
 
-## 🧠 Brand & design system
+## Scripts
 
-- **Color tokens** live in [`app/globals.css`](app/globals.css) under `:root` and the `@theme inline` block. They map directly onto Tailwind v4 utility classes (`bg-background`, `text-foreground`, etc.).
-- **Motion presets** live in [`lib/motion.ts`](lib/motion.ts). Reuse `EASE.emphasized`, `transitions.spring`, and the `fadeInUp` / `headlineWord` variants instead of writing magic numbers.
-- **Brand voice + site constants** live in [`lib/site.ts`](lib/site.ts). Updating the studio name, tagline, social links, or canonical URL is a one-file change.
+| Command | Description |
+| :--- | :--- |
+| `pnpm dev` | Start dev server on [localhost:3000](http://localhost:3000) |
+| `pnpm build` | Production build (Turbopack) |
+| `pnpm start` | Serve the production build |
+| `pnpm lint` | ESLint |
+| `pnpm typecheck` | TypeScript `--noEmit` |
+| `pnpm test` | Vitest unit tests |
+| `pnpm test:e2e` | Playwright end-to-end tests |
+| `pnpm format` | Prettier (write) |
+| `pnpm format:check` | Prettier (check — used by CI) |
+| `pnpm ci` | Full pipeline: format, lint, typecheck, test, build |
 
 ---
 
-## 🗺 Roadmap
+## Design system
 
-- [x] Marketing site (hero, services, process, work, pricing, testimonials, CTA, footer)
-- [x] Supabase Auth (email/password + magic link)
-- [x] Dashboard shell with sidebar, projects, analytics, settings
-- [x] Streaming AI chat (`/dashboard/chat`)
-- [x] Edge OpenGraph + Twitter card generation
-- [x] PWA manifest, sitemap, robots
-- [ ] `/manifesto` page — the studio's point of view
+The design system is intentionally minimal and composable. Everything resolves to CSS variables so you can retheme the entire site from one file.
+
+**Color tokens** are defined in [`app/globals.css`](app/globals.css) under `:root` and the `@theme inline` block. They map directly to Tailwind v4 utilities (`bg-background`, `text-foreground`, `bg-surface-0`, etc.).
+
+**Motion presets** live in [`lib/motion.ts`](lib/motion.ts). Use `EASE.emphasized`, `transitions.spring`, and the pre-built variants (`fadeInUp`, `stagger`, `headlineWord`) instead of magic numbers.
+
+**Brand constants** live in [`lib/site.ts`](lib/site.ts). Updating the studio name, tagline, social links, or canonical URL is a single-file change that propagates to metadata, OG images, JSON-LD, the sitemap, and the footer.
+
+---
+
+## Tech stack
+
+| Layer | Technology | Role |
+| :--- | :--- | :--- |
+| Framework | [Next.js 16](https://nextjs.org) (App Router, Turbopack) | Streaming SSR, edge functions, file-based routing |
+| Language | [TypeScript 5.7](https://www.typescriptlang.org) | Strict mode, end-to-end type safety |
+| UI | [React 19](https://react.dev), [Tailwind v4](https://tailwindcss.com), [shadcn/ui](https://ui.shadcn.com), [Radix](https://www.radix-ui.com) | Composable, accessible primitives |
+| Motion | [motion](https://motion.dev) | Variants, layout animations, spring easings |
+| AI | [Vercel AI SDK v6](https://sdk.vercel.ai) | Provider-agnostic streaming UI |
+| Auth | [Supabase Auth + SSR](https://supabase.com/auth) | RLS-ready, JWT-based, middleware-driven |
+| Forms | [react-hook-form](https://react-hook-form.com) + [Zod](https://zod.dev) | Client + server validation |
+| Analytics | [Vercel Analytics](https://vercel.com/analytics), [Speed Insights](https://vercel.com/docs/speed-insights) | Zero-config observability |
+| Testing | [Vitest](https://vitest.dev), [Playwright](https://playwright.dev) | Unit + E2E |
+| Fonts | Rubik, Space Grotesk, JetBrains Mono | Display + body + code |
+
+---
+
+## Roadmap
+
+- [x] Marketing site — hero, services, process, work, pricing, testimonials, CTA
+- [x] Supabase Auth — email/password, magic link, SSR middleware
+- [x] Client dashboard — sidebar, projects, analytics, settings, admin
+- [x] Streaming AI chat at `/dashboard/chat`
+- [x] Edge OG + Twitter card generation
+- [x] PWA manifest, dynamic sitemap, robots.txt
+- [x] CI pipeline — lint, typecheck, test, build
+- [x] Dependabot + CODEOWNERS
+- [ ] `/manifesto` — the studio's point of view
 - [ ] Case study templates (`/work/[slug]`)
-- [ ] Billing integration (Stripe + Supabase)
+- [ ] Stripe billing integration
 - [ ] Realtime collaborative AI canvas
-- [ ] Storybook for the primitives library
-- [ ] Playwright E2E smoke tests in CI
+- [ ] Component Storybook
+- [ ] Playwright E2E in CI
 
-Have an idea? [Open a feature request](https://github.com/Alexi5000/v0-dreammachine2/issues/new?template=feature_request.yml).
-
----
-
-## 🧰 Tech stack
-
-| Layer | Choice | Why |
-| --- | --- | --- |
-| Framework | **Next.js 16** (App Router, Turbopack) | Streaming SSR, edge OG, file-based routing |
-| Language | **TypeScript 5.7** | Type safety end-to-end |
-| UI | **React 19**, **Tailwind v4**, **shadcn/ui**, **Radix** | Composable, accessible primitives |
-| Motion | **motion** (formerly Framer Motion) | Variants, layout animations, spring easings |
-| AI | **Vercel AI SDK v6** | Provider-agnostic streaming UI |
-| Auth | **Supabase Auth + SSR** | RLS-ready, JWT-based, middleware-driven |
-| Forms | **react-hook-form** + **Zod** | Strict client + server validation |
-| Analytics | **Vercel Analytics**, **Speed Insights** | Zero-config observability |
-| Icons | **lucide-react** + custom marks | Crisp, license-friendly |
-| Fonts | **Rubik**, **Space Grotesk**, **JetBrains Mono** (Google Fonts) | Display + body + code, optical-size tuned |
+[Open a feature request](https://github.com/Alexi5000/v0-dreammachine2/issues/new?template=feature_request.yml) if you have an idea.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-Pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for setup, the commit-message convention, and the review process. By participating you agree to abide by the [Code of Conduct](CODE_OF_CONDUCT.md).
+Pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for the setup guide, commit conventions, and review process. By participating you agree to the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-For security disclosures, see [SECURITY.md](SECURITY.md).
-
----
-
-## 📄 License
-
-Released under the [MIT License](LICENSE). © 2026 Alex Cinovoj and Nexus AI contributors.
+Security issues should be reported privately — see [SECURITY.md](SECURITY.md).
 
 ---
+
+## License
+
+[MIT](LICENSE) &copy; 2026 [Alex Cinovoj](https://github.com/Alexi5000) and contributors.
 
 <div align="center">
-
-**Built with ⌥ by [Alex Cinovoj](https://github.com/Alexi5000)** · [Star on GitHub](https://github.com/Alexi5000/v0-dreammachine2) · [Sponsor](https://github.com/sponsors/Alexi5000)
-
+  <br />
+  <a href="https://github.com/Alexi5000/v0-dreammachine2">Star this repo</a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+  <a href="https://github.com/sponsors/Alexi5000">Sponsor</a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+  <a href="https://nexus-ai.techtideai.io">Visit the live site</a>
+  <br /><br />
 </div>
