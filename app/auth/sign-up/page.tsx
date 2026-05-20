@@ -1,16 +1,18 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { motion } from "motion/react"
-import { createClient } from "@/lib/supabase/client"
-import { ShapedButton } from "@/components/ui/shaped-button"
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { motion } from 'motion/react'
+import { createClient } from '@/lib/supabase/client'
+import { ShapedButton } from '@/components/ui/shaped-button'
+import { SITE } from '@/lib/site'
+import { fadeInUp, transitions } from '@/lib/motion'
 
 export default function SignUpPage() {
-  const [fullName, setFullName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -28,10 +30,7 @@ export default function SignUpPage() {
         emailRedirectTo:
           process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
           `${window.location.origin}/dashboard`,
-        data: {
-          full_name: fullName,
-          // Role is determined by trigger - admin for Alex@techtideai.io, user for others
-        },
+        data: { full_name: fullName },
       },
     })
 
@@ -41,82 +40,86 @@ export default function SignUpPage() {
       return
     }
 
-    // Redirect to success page
-    router.push("/auth/sign-up-success")
+    router.push('/auth/sign-up-success')
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
-      {/* Background effects matching hero */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#21346e]/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#fbbf24]/10 rounded-full blur-3xl" />
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[#0a0a0a] p-4">
+      {/* Background */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute left-1/4 top-1/4 h-96 w-96 rounded-full bg-[#21346e]/20 blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-[#fbbf24]/10 blur-3xl" />
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+        variants={fadeInUp}
+        initial="hidden"
+        animate="visible"
+        transition={transitions.base}
         className="relative w-full max-w-md"
       >
-        {/* Card matching hero card design */}
-        <div className="relative bg-gradient-to-br from-[#21346e] via-[#1a2a5a] to-[#151f45] rounded-2xl border border-white/10 p-8 md:p-10 overflow-hidden">
-          {/* Top accent line */}
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#fbbf24] to-transparent" />
-          
-          {/* Corner glow */}
-          <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#fbbf24]/10 rounded-full blur-3xl pointer-events-none" />
-          
-          {/* Content */}
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#21346e] via-[#1a2a5a] to-[#151f45] p-8 md:p-10">
+          <div className="absolute left-0 right-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#fbbf24] to-transparent" />
+          <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-[#fbbf24]/10 blur-3xl" />
+
           <div className="relative z-10">
-            {/* Logo/Brand */}
-            <Link href="/" className="inline-block mb-8">
-              <span className="text-2xl font-bold text-white tracking-tight">
+            <Link href="/" className="mb-8 inline-block">
+              <span className="text-2xl font-bold tracking-tight text-white">
                 NEXUS<span className="text-[#fbbf24]">.</span>
               </span>
             </Link>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">
-              Get Started
+            <h1 className="mb-2 text-3xl font-bold tracking-tight text-white md:text-4xl">
+              Get started
             </h1>
-            <p className="text-white/60 mb-8">
-              Create your account to begin your journey
+            <p className="mb-8 text-white/60">
+              Create your account to begin
             </p>
 
-            {/* Sign Up Form - No 2FA, direct to dashboard after email confirmation */}
             <form onSubmit={handleSignUp} className="space-y-5">
               <div>
-                <label htmlFor="fullName" className="block text-sm font-medium text-white/70 mb-2">
-                  Full Name
+                <label
+                  htmlFor="fullName"
+                  className="mb-2 block text-sm font-medium text-white/70"
+                >
+                  Full name
                 </label>
                 <input
                   id="fullName"
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:border-[#fbbf24]/50 focus:ring-1 focus:ring-[#fbbf24]/50 transition-all"
-                  placeholder="John Doe"
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/30 transition-all focus:border-[#fbbf24]/50 focus:outline-none focus:ring-1 focus:ring-[#fbbf24]/50"
+                  placeholder="Alex Cinovoj"
                   required
+                  autoComplete="name"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-white/70 mb-2">
-                  Email Address
+                <label
+                  htmlFor="email"
+                  className="mb-2 block text-sm font-medium text-white/70"
+                >
+                  Email address
                 </label>
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:border-[#fbbf24]/50 focus:ring-1 focus:ring-[#fbbf24]/50 transition-all"
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/30 transition-all focus:border-[#fbbf24]/50 focus:outline-none focus:ring-1 focus:ring-[#fbbf24]/50"
                   placeholder="you@example.com"
                   required
+                  autoComplete="email"
                 />
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-white/70 mb-2">
+                <label
+                  htmlFor="password"
+                  className="mb-2 block text-sm font-medium text-white/70"
+                >
                   Password
                 </label>
                 <input
@@ -124,21 +127,20 @@ export default function SignUpPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:border-[#fbbf24]/50 focus:ring-1 focus:ring-[#fbbf24]/50 transition-all"
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/30 transition-all focus:border-[#fbbf24]/50 focus:outline-none focus:ring-1 focus:ring-[#fbbf24]/50"
                   placeholder="Create a strong password"
                   required
                   minLength={8}
+                  autoComplete="new-password"
                 />
-                <p className="mt-1 text-xs text-white/40">
-                  Minimum 8 characters
-                </p>
+                <p className="mt-1 text-xs text-white/40">Minimum 8 characters</p>
               </div>
 
               {error && (
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm"
+                  className="rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-400"
                 >
                   {error}
                 </motion.div>
@@ -151,33 +153,52 @@ export default function SignUpPage() {
                 fullWidth
                 disabled={loading}
               >
-                {loading ? "CREATING ACCOUNT..." : "CREATE ACCOUNT"}
+                {loading ? 'CREATING ACCOUNT...' : 'CREATE ACCOUNT'}
               </ShapedButton>
             </form>
 
-            {/* Login link */}
-            <p className="mt-8 text-center text-white/50 text-sm">
-              Already have an account?{" "}
+            <p className="mt-8 text-center text-sm text-white/50">
+              Already have an account?{' '}
               <Link
                 href="/auth/login"
-                className="text-[#fbbf24] hover:text-[#fbbf24]/80 transition-colors font-medium"
+                className="font-medium text-[#fbbf24] transition-colors hover:text-[#fbbf24]/80"
               >
-                Sign In
+                Sign in
               </Link>
             </p>
 
-            {/* Security note */}
-            <div className="mt-6 pt-6 border-t border-white/10">
-              <p className="text-xs text-white/40 text-center">
-                By creating an account, you agree to our terms of service. 
+            <div className="mt-6 border-t border-white/10 pt-6">
+              <p className="text-center text-xs text-white/40">
+                By creating an account, you agree to our terms of service.
                 Your data is protected with enterprise-grade security.
               </p>
             </div>
           </div>
 
-          {/* Bottom accent */}
-          <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#fbbf24] via-[#fbbf24]/50 to-transparent" />
+          <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-[#fbbf24] via-[#fbbf24]/50 to-transparent" />
         </div>
+      </motion.div>
+
+      {/* Stack footer */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+        className="relative z-10 mt-8 flex flex-col items-center gap-3"
+      >
+        <div className="flex flex-wrap justify-center gap-2">
+          {['Next.js 16', 'React 19', 'Supabase Auth', 'Tailwind v4'].map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-white/40"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+        <p className="text-xs text-white/25">
+          {SITE.name} by {SITE.author}
+        </p>
       </motion.div>
     </div>
   )
