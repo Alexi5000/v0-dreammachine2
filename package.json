@@ -1,12 +1,65 @@
 {
-  "name": "my-project",
-  "version": "0.1.0",
+  "name": "nexus-ai",
+  "version": "1.0.0",
   "private": true,
+  "description": "Nexus AI — an AI-native design studio site & client dashboard. Brand systems, generative interfaces, motion, and production engineering, built with Next.js, Supabase, and the Vercel AI SDK.",
+  "homepage": "https://nexus-ai.techtideai.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexi5000/v0-dreammachine2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Alexi5000/v0-dreammachine2/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Alex Cinovoj",
+    "email": "hello@techtideai.io",
+    "url": "https://github.com/Alexi5000"
+  },
+  "keywords": [
+    "nextjs",
+    "ai",
+    "design-studio",
+    "supabase",
+    "vercel",
+    "vercel-ai-sdk",
+    "generative-design",
+    "tailwindcss",
+    "shadcn-ui",
+    "open-source"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@10.0.0",
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 100,
+    "tabWidth": 2,
+    "useTabs": false,
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "plugins": ["prettier-plugin-tailwindcss"]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,mjs,md,json,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,mjs,md,json,css}\"",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "ci": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "prepare": "test -d .git && (husky || true) || true"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -39,6 +92,7 @@
     "@radix-ui/react-tooltip": "1.2.8",
     "@supabase/ssr": "^0.9.0",
     "@vercel/analytics": "1.6.1",
+    "@vercel/speed-insights": "^1.2.0",
     "ai": "^6.0.116",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
@@ -63,13 +117,24 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.0",
     "@tailwindcss/postcss": "^4.2.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
     "@types/node": "^22",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "16.1.6",
+    "eslint-config-prettier": "^9.1.0",
+    "jsdom": "^25.0.1",
     "postcss": "^8.5",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
     "tailwindcss": "^4.2.0",
     "tw-animate-css": "1.3.3",
-    "typescript": "5.7.3"
+    "typescript": "5.7.3",
+    "vitest": "^2.1.8"
   }
 }

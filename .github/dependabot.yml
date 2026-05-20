@@ -1,0 +1,34 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    reviewers:
+      - Alexi5000
+    labels:
+      - dependencies
+    groups:
+      radix:
+        patterns:
+          - "@radix-ui/*"
+      dev-tools:
+        patterns:
+          - eslint*
+          - prettier*
+          - vitest*
+          - "@testing-library/*"
+          - "@types/*"
+      vercel:
+        patterns:
+          - "@vercel/*"
+          - next
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    labels:
+      - ci

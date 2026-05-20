@@ -1,0 +1,18 @@
+# Default code owners for all files
+* @Alexi5000
+
+# Core configuration
+/*.config.* @Alexi5000
+/package.json @Alexi5000
+/tsconfig.json @Alexi5000
+
+# CI/CD
+/.github/ @Alexi5000
+
+# Design system
+/components/ui/ @Alexi5000
+/lib/motion.ts @Alexi5000
+
+# Infrastructure
+/supabase/ @Alexi5000
+/app/api/ @Alexi5000

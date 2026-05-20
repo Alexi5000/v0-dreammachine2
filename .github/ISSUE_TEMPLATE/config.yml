@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussion
+    url: https://github.com/Alexi5000/v0-dreammachine2/discussions
+    about: Ask questions and share ideas in GitHub Discussions
+  - name: Security Vulnerability
+    url: https://github.com/Alexi5000/v0-dreammachine2/blob/main/SECURITY.md
+    about: Report security vulnerabilities responsibly
