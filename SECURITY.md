@@ -47,7 +47,7 @@ We follow [coordinated disclosure](https://en.wikipedia.org/wiki/Coordinated_vul
 In scope:
 
 - The `main` branch of this repository
-- The deployed reference site at `nexus-ai.techtideai.io`
+- The deployed reference site at `v0-dreammachine2.vercel.app`
 - Build pipelines, GitHub Actions workflows, and supply-chain dependencies declared in `package.json`
 
 Out of scope:

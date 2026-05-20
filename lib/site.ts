@@ -9,7 +9,7 @@ export const SITE = {
   tagline: 'AI-Native Design Studio',
   description:
     'Nexus AI is an AI-native design studio crafting brand systems, generative interfaces, and motion experiences for ambitious teams. We pair frontier models with human craft to ship work that compounds.',
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexus-ai.techtideai.io').replace(/\/$/, ''),
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://v0-dreammachine2.vercel.app').replace(/\/$/, ''),
   ogImage: '/opengraph-image',
   twitter: '@techtideai',
   author: 'Alex Cinovoj',

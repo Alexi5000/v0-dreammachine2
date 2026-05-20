@@ -63,7 +63,7 @@
   </g>
 
   <!-- URL -->
-  <text x="640" y="540" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace" font-size="15" fill="#64748b">nexus-ai.techtideai.io</text>
+  <text x="640" y="540" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace" font-size="15" fill="#64748b">v0-dreammachine2.vercel.app</text>
 
   <!-- Corner accents -->
   <rect x="40" y="40" width="40" height="2" rx="1" fill="#fbbf24" opacity=".3"/>

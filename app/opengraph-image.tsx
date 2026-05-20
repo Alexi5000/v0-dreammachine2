@@ -151,7 +151,7 @@ export default async function OpengraphImage() {
             color: 'rgba(255,255,255,0.55)',
           }}
         >
-          <span style={{ fontFamily: 'monospace' }}>nexus-ai.techtideai.io</span>
+          <span style={{ fontFamily: 'monospace' }}>v0-dreammachine2.vercel.app</span>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
             {['Next.js 16', 'Supabase', 'Vercel AI SDK'].map((p) => (
               <span

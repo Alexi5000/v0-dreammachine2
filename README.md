@@ -1,6 +1,6 @@
 <div align="center">
   <br />
-  <a href="https://nexus-ai.techtideai.io">
+  <a href="https://v0-dreammachine2.vercel.app">
     <img src="docs/banner.svg" alt="Nexus AI — AI-Native Design Studio" width="100%" />
   </a>
   <br /><br />
@@ -22,7 +22,7 @@
   </p>
 
   <p>
-    <a href="https://nexus-ai.techtideai.io"><strong>Live&nbsp;demo</strong></a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+    <a href="https://v0-dreammachine2.vercel.app"><strong>Live&nbsp;demo</strong></a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
     <a href="#getting-started"><strong>Getting&nbsp;started</strong></a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
     <a href="#architecture"><strong>Architecture</strong></a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
     <a href="CONTRIBUTING.md"><strong>Contributing</strong></a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
@@ -54,7 +54,7 @@ Fork it, swap the brand tokens, connect your AI providers, and you have a catego
 
 ## Preview
 
-> Run `pnpm dev` to see these live, or visit [nexus-ai.techtideai.io](https://nexus-ai.techtideai.io).
+> Run `pnpm dev` to see these live, or visit [v0-dreammachine2.vercel.app](https://v0-dreammachine2.vercel.app).
 
 <table>
   <tr>
@@ -279,6 +279,6 @@ Security issues should be reported privately — see [SECURITY.md](SECURITY.md).
   <br />
   <a href="https://github.com/Alexi5000/v0-dreammachine2">Star this repo</a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
   <a href="https://github.com/sponsors/Alexi5000">Sponsor</a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;
-  <a href="https://nexus-ai.techtideai.io">Visit the live site</a>
+  <a href="https://v0-dreammachine2.vercel.app">Visit the live site</a>
   <br /><br />
 </div>

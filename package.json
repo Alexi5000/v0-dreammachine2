@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Nexus AI — an AI-native design studio site & client dashboard. Brand systems, generative interfaces, motion, and production engineering, built with Next.js, Supabase, and the Vercel AI SDK.",
-  "homepage": "https://nexus-ai.techtideai.io",
+  "homepage": "https://v0-dreammachine2.vercel.app",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Alexi5000/v0-dreammachine2.git"
